@@ -1,0 +1,14 @@
+- name: Home
+  link: /
+- name: Series
+  submenu:
+    - name: "Wavefrontで学ぶ分散トレーシング"
+      link: https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt/
+    - name: "Wavefrontで学ぶHPA"
+      link: https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa/
+    - name: "TMCで学ぶOPA"
+      link: https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa/
+    - name: "モニタリングはもう古い?-Tanzu Observabilityのご紹介"
+      link: https://licensecounter.jp/devops-hub/blog/observability/
+- name: About
+  link: about/

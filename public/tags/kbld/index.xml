@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kbld on blog.lespaulstudioplus.info</title>
+    <link>https://blog.lespaulstudioplus.info/tags/kbld/</link>
+    <description>Recent content in kbld on blog.lespaulstudioplus.info</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 05 Jan 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/kbld/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>イメージダイジェストをDocker CLIもなく、イメージもダウンロードせずに調べる方法</title>
+      <link>https://blog.lespaulstudioplus.info/posts/30/</link>
+      <pubDate>Thu, 05 Jan 2023 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/30/</guid>
+      <description>
+        
+          
+            コンテナのイメージダイジェストはkbldを使えば、Docker CLIも、イメージをダウンロードしなくても調べることができます。
+やり方 kbldをインストール後、以下のコマンドでできます。
+1echo &amp;#39;{&amp;#34;image&amp;#34;: &amp;#34;IMAGE_NAME&amp;#34;}&amp;#39; | kbld --images-annotation=false -f- IMAGE_NAMEには、みたいイメージをいれてください。
+実行例 nginxのイメージの執筆時点の最新ダイジェストを調べました。
+1% echo &amp;#39;{&amp;#34;image&amp;#34;: &amp;#34;nginx:latest&amp;#34;}&amp;#39; | kbld --images-annotation=false -f- 2resolve | final: nginx:latest -&amp;gt; index.docker.io/library/nginx@sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286 3--- 4image: index.docker.io/library/nginx@sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286 5 6Succeeded 
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
