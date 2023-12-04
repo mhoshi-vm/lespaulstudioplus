@@ -16,11 +16,7 @@
       <description>
         
           
-            コンテナのイメージダイジェストはkbldを使えば、Docker CLIも、イメージをダウンロードしなくても調べることができます。
-やり方 kbldをインストール後、以下のコマンドでできます。
-1echo &amp;#39;{&amp;#34;image&amp;#34;: &amp;#34;IMAGE_NAME&amp;#34;}&amp;#39; | kbld --images-annotation=false -f- IMAGE_NAMEには、みたいイメージをいれてください。
-実行例 nginxのイメージの執筆時点の最新ダイジェストを調べました。
-1% echo &amp;#39;{&amp;#34;image&amp;#34;: &amp;#34;nginx:latest&amp;#34;}&amp;#39; | kbld --images-annotation=false -f- 2resolve | final: nginx:latest -&amp;gt; index.docker.io/library/nginx@sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286 3--- 4image: index.docker.io/library/nginx@sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286 5 6Succeeded 
+            &lt;p&gt;コンテナのイメージダイジェストはkbldを使えば、Docker CLIも、イメージをダウンロードしなくても調べることができます。&lt;/p&gt;
           
           
         
