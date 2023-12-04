@@ -6,7 +6,24 @@
     <description>Recent content in Posts on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 05 Jan 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Dec 2023 16:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpringでOpenAIのストリーミングアウトプットに対応したアプリケーションを作成する</title>
+      <link>https://blog.lespaulstudioplus.info/posts/31/</link>
+      <pubDate>Mon, 04 Dec 2023 16:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/31/</guid>
+      <description>
+        
+          
+            &lt;p&gt;SpringのアプリケーションでOpenAIのストリーミングを有効にしたコードを紹介します。
+なお、この記事を書いている時点では、ハック的なコードが多いため、あくまでこのブログの執筆時点での方法と考えてくだい。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>イメージダイジェストをDocker CLIもなく、イメージもダウンロードせずに調べる方法</title>
       <link>https://blog.lespaulstudioplus.info/posts/30/</link>
