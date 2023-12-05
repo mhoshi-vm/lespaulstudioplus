@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS on blog.lespaulstudioplus.info</title>
+    <link>https://blog.lespaulstudioplus.info/tags/aws/</link>
+    <description>Recent content in AWS on blog.lespaulstudioplus.info</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 04 Dec 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crossplane / Upbound にコントリビュートする方法</title>
+      <link>https://blog.lespaulstudioplus.info/posts/32/</link>
+      <pubDate>Mon, 04 Dec 2023 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/32/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Crossplane とは、KubernetesからTerraformライクにIaaSをコントロールすることができるコンポーネントです。
+特に多くなるであろうユースケースがCrossplaneからAWSのリソースを管理できるようにするものです。&lt;/p&gt;
+&lt;p&gt;まだ若いプロジェクトなので、どうしても期待した動作にならないことが多いです。その場合はパッチを自作するか、自分からコミュニティに貢献をすることがおすすめです。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
