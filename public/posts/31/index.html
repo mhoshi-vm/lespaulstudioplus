@@ -240,7 +240,7 @@
 </span></span><span class="line"><span class="ln">6</span><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
 </span></span><span class="line"><span class="ln">7</span><span class="cl">            &lt;artifactId&gt;spring-boot-starter-webflux&lt;/artifactId&gt;
 </span></span><span class="line"><span class="ln">8</span><span class="cl">        &lt;/dependency&gt;
-</span></span></code></pre></div><p>なお、本当は <code>spring-boot-starter-webflux</code> 不要なはずです。細かい検証が原因ができていなく、原因が不明なのですが、執筆時点では、この対応が必要だった点を追記しておきます。</p>
+</span></span></code></pre></div><p>なお、本当は <code>spring-boot-starter-webflux</code> 不要なはずです。細かい検証ができていなく、原因が不明なのですが、執筆時点では、この対応が必要だった点を追記しておきます。</p>
 <h3 id="openai-client-の拡張および新フアンクション定義">OpenAI Client の拡張および新フアンクション定義</h3>
 <p><code>org.springframework.ai.openai.client.OpenAiClient</code> を拡張して、ストリームに対応したメソッドを定義しています。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="n">MyOpenAiClient</span> <span class="k">extends</span> <span class="n">OpenAiClient</span> <span class="p">{</span>
