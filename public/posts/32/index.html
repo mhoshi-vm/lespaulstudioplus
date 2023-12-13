@@ -129,7 +129,7 @@
 </svg>
 </span>
     <span class="post_date">
-      Dec 4, 2023</span>
+      Dec 10, 2023</span>
     <span class="post_time"> · 1 分で読了</span><span>&nbsp;· <a href='https://blog.lespaulstudioplus.info/tags/crossplane/' title="Crossplane" class="post_tag button button_translucent">Crossplane
         </a><a href='https://blog.lespaulstudioplus.info/tags/aws/' title="AWS" class="post_tag button button_translucent">AWS
         </a>
@@ -213,7 +213,39 @@
 <p><a href="https://github.com/upbound/provider-aws/pull/826/files">https://github.com/upbound/provider-aws/pull/826/files</a></p>
 <p>このPRなんかも、<code>config</code> 以下のコードを触っているだけであり、残りの差分はビルド時に自動生成された箇所です。</p>
 <p><a href="https://github.com/upbound/provider-aws/pull/831/files">https://github.com/upbound/provider-aws/pull/831/files</a></p>
-<h3 id="4-編集が完了したコンテナイメージを作成する">4. 編集が完了したコンテナイメージを作成する</h3>
+<h3 id="4-いじった箇所をローカルで試す">4. いじった箇所をローカルで試す</h3>
+<p>若干ハックがあるものの、以下のコマンドで、パソコン上で試すことができます。
+（前提として手元にterraformのCLIがインストールされていること）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">export</span> <span class="n">KUBECONFIG</span><span class="o">=&lt;</span><span class="n">kubeconfig</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">make</span> <span class="n">run</span>
+</span></span></code></pre></div><p>AWSを管理する場合、デフォルトでは<code>monolith</code> オブジェクトが起動してしまい、必要以上のオブジェクトが起動してきてしまいます。
+<code>Makefile</code> の以下の箇所をいじった後に<code>make run</code> すれば起動するものをおさえることができます。</p>
+<p><figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="img_1.png"
+      
+        class="image_figure image_internal image_unprocessed"
+        src="../../images/32/img_3.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<h3 id="5-編集が完了したコンテナイメージを作成する">5. 編集が完了したコンテナイメージを作成する</h3>
 <p>ビルドには大前提 go が必要なので、インストールと <code>GO_ROOT</code>を設定する。
 （Intellij の場合、$HOME/sdk 以下のインストールされたものを利用)</p>
 <p>編集した部分だけをビルドして作っていきます。
@@ -226,9 +258,9 @@
 </span></span></code></pre></div><p>そして以下のコマンドでビルドします。ポイントが<code>SUBPACKAGES</code>でビルド対象をおさえていることです。特にProvider AWSはかなりのモジュールが多いので必要なもののみに抑えるのがおすすめです。
 とはいえ、特定のプラグインだけバージョンが違うことは認められていないようです。
 なので、編集したものとあわせ、実際に環境で使用するプラグインも指定します。
-この例では、<code>ecs</code>と<code>ec2</code>と<code>elbv2</code>をビルド</p>
+この例では、<code>ecs</code>と<code>ec2</code>と<code>elbv2</code>をビルド。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">make build.all publish BRANCH_NAME=main SUBPACKAGES=&#34;ecs ec2 elbv2 config&#34;
-</span></span></code></pre></div><h3 id="5-あとは-crossplane-で動作をためす">5. あとは Crossplane で動作をためす</h3>
+</span></span></code></pre></div><h3 id="6-あとは-crossplane-で動作をためす">6. あとは Crossplane で動作をためす</h3>
 <p>あとは通常通りにインストールするだけ</p>
 <p><a href="https://marketplace.upbound.io/providers/upbound/provider-family-aws/v0.45.0">https://marketplace.upbound.io/providers/upbound/provider-family-aws/v0.45.0</a></p>
 <p>この際に、<code>kind: Provider</code> に一個前に作ったコンテナイメージを指定します。</p>
@@ -236,7 +268,7 @@
 </span></span><span class="line"><span class="ln">2</span><span class="cl">apiVersion: pkg.crossplane.io/v1
 </span></span><span class="line"><span class="ln">3</span><span class="cl">kind: Provider
 </span></span><span class="line"><span class="ln">4</span><span class="cl">metadata:
-</span></span><span class="line"><span class="ln">5</span><span class="cl">  name: provider-aws-s3
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  name: provider-aws-ecs
 </span></span><span class="line"><span class="ln">6</span><span class="cl">spec:
 </span></span><span class="line"><span class="ln">7</span><span class="cl">  package: ghcr.io/mhoshi-vm/custom-upbound/provider-aws-ecs:&lt;version&gt;
 </span></span><span class="line"><span class="ln">8</span><span class="cl">EOF
