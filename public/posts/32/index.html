@@ -216,6 +216,13 @@
 <h3 id="4-いじった箇所をローカルで試す">4. いじった箇所をローカルで試す</h3>
 <p>若干ハックがあるものの、以下のコマンドで、パソコン上で試すことができます。
 （前提として手元にterraformのCLIがインストールされていること）</p>
+<p>まず goimports をインストールします。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">go</span> <span class="n">install</span> <span class="n">golang</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">x</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">cmd</span><span class="o">/</span><span class="n">goimports</span><span class="err">@</span><span class="n">latest</span>
+</span></span></code></pre></div><p>同じプロンプトでやると goimports がないままのケースがあるので、別プロンプトで起動。</p>
+<p>その後、コードを生成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">make generate
+</span></span></code></pre></div><p>AWS のリソースを管理する場合、IRSAを使って権限を取得することが必要ですが、</p>
+<p>そして起動</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">export</span> <span class="n">KUBECONFIG</span><span class="o">=&lt;</span><span class="n">kubeconfig</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">make</span> <span class="n">run</span>
 </span></span></code></pre></div><p>AWSを管理する場合、デフォルトでは<code>monolith</code> オブジェクトが起動してしまい、必要以上のオブジェクトが起動してきてしまいます。
