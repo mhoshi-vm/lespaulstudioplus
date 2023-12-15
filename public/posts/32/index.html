@@ -221,8 +221,13 @@
 </span></span></code></pre></div><p>同じプロンプトでやると goimports がないままのケースがあるので、別プロンプトで起動。</p>
 <p>その後、コードを生成</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">make generate
-</span></span></code></pre></div><p>AWS のリソースを管理する場合、IRSAを使って権限を取得することが必要ですが、</p>
-<p>そして起動</p>
+</span></span></code></pre></div><p>AWS のリソースを管理する場合、IRSAを使って権限を取得することが望ましいですが、以下のような環境変数をエクスポートすることでIRSAが使えます。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">export</span> <span class="n">AWS_STS_REGIONAL_ENDPOINTS</span><span class="o">=</span><span class="n">regional</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">export</span> <span class="n">AWS_DEFAULT_REGION</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span><span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">export</span> <span class="n">AWS_REGION</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">west</span><span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="k">export</span> <span class="n">AWS_ROLE_ARN</span><span class="o">=&lt;</span><span class="n">role</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="k">export</span> <span class="n">AWS_WEB_IDENTITY_TOKEN_FILE</span><span class="o">=./</span><span class="n">token</span>
+</span></span></code></pre></div><p>そして起動</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">export</span> <span class="n">KUBECONFIG</span><span class="o">=&lt;</span><span class="n">kubeconfig</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">make</span> <span class="n">run</span>
 </span></span></code></pre></div><p>AWSを管理する場合、デフォルトでは<code>monolith</code> オブジェクトが起動してしまい、必要以上のオブジェクトが起動してきてしまいます。
