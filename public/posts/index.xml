@@ -6,7 +6,49 @@
     <description>Recent content in Posts on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 10 Dec 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Dec 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tanzu Application Platform から Amazon ECS へデプロイをする</title>
+      <link>https://blog.lespaulstudioplus.info/posts/33/</link>
+      <pubDate>Fri, 22 Dec 2023 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/33/</guid>
+      <description>
+        
+          
+            &lt;p&gt;&lt;figure&gt;
+  &lt;picture&gt;
+
+    
+      
+        
+        
+        
+        
+        
+        
+    &lt;img
+      loading=&#34;lazy&#34;
+      decoding=&#34;async&#34;
+      alt=&#34;img_6.png&#34;
+      
+        class=&#34;image_figure image_internal image_unprocessed&#34;
+        src=&#34;../../images/33/img_6.png&#34;
+      
+      
+    /&gt;
+
+    &lt;/picture&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;コンテナといったらKubernetes 、というわけではなく、Amazon ECS を多く利用している人もいると思います。
+この記事では、Tanzu Application Platform (以後TAP)から Amazon ECS へデプロイする方法を紹介してみます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Crossplane / Upbound にコントリビュートする方法</title>
       <link>https://blog.lespaulstudioplus.info/posts/32/</link>
