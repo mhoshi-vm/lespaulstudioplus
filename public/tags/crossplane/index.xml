@@ -16,32 +16,7 @@
       <description>
         
           
-            &lt;p&gt;&lt;figure&gt;
-  &lt;picture&gt;
-
-    
-      
-        
-        
-        
-        
-        
-        
-    &lt;img
-      loading=&#34;lazy&#34;
-      decoding=&#34;async&#34;
-      alt=&#34;img_6.png&#34;
-      
-        class=&#34;image_figure image_internal image_unprocessed&#34;
-        src=&#34;../../images/33/img_6.png&#34;
-      
-      
-    /&gt;
-
-    &lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;コンテナといったらKubernetes 、というわけではなく、Amazon ECS を多く利用している人もいると思います。
+            &lt;p&gt;コンテナといったらKubernetes 、というわけではなく、Amazon ECS を多く利用している人もいると思います。
 この記事では、Tanzu Application Platform (以後TAP)から Amazon ECS へデプロイする方法を紹介してみます。&lt;/p&gt;
           
           

@@ -2,28 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.lespaulstudioplus.info/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/categories/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/posts/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/tags/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/tags/tanzu-platform/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/categories/tanzu-platform/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/posts/34/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/posts/35/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.lespaulstudioplus.info/posts/36/</loc>
+    <lastmod>2025-01-05T21:31:12+09:00</lastmod>
+  </url><url>
     <loc>https://blog.lespaulstudioplus.info/tags/aws/</loc>
     <lastmod>2023-12-22T21:30:12+09:00</lastmod>
   </url><url>
     <loc>https://blog.lespaulstudioplus.info/categories/aws/</loc>
     <lastmod>2023-12-22T21:30:12+09:00</lastmod>
   </url><url>
-    <loc>https://blog.lespaulstudioplus.info/</loc>
-    <lastmod>2023-12-22T21:30:12+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.lespaulstudioplus.info/categories/</loc>
-    <lastmod>2023-12-22T21:30:12+09:00</lastmod>
-  </url><url>
     <loc>https://blog.lespaulstudioplus.info/tags/crossplane/</loc>
     <lastmod>2023-12-22T21:30:12+09:00</lastmod>
   </url><url>
     <loc>https://blog.lespaulstudioplus.info/categories/crossplane/</loc>
-    <lastmod>2023-12-22T21:30:12+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.lespaulstudioplus.info/posts/</loc>
-    <lastmod>2023-12-22T21:30:12+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.lespaulstudioplus.info/tags/</loc>
     <lastmod>2023-12-22T21:30:12+09:00</lastmod>
   </url><url>
     <loc>https://blog.lespaulstudioplus.info/posts/33/</loc>
@@ -62,10 +77,10 @@
     <loc>https://blog.lespaulstudioplus.info/posts/30/</loc>
     <lastmod>2023-01-05T21:30:12+09:00</lastmod>
   </url><url>
-    <loc>https://blog.lespaulstudioplus.info/categories/github/</loc>
+    <loc>https://blog.lespaulstudioplus.info/tags/github/</loc>
     <lastmod>2022-12-19T21:30:12+09:00</lastmod>
   </url><url>
-    <loc>https://blog.lespaulstudioplus.info/tags/github/</loc>
+    <loc>https://blog.lespaulstudioplus.info/categories/github/</loc>
     <lastmod>2022-12-19T21:30:12+09:00</lastmod>
   </url><url>
     <loc>https://blog.lespaulstudioplus.info/tags/kpack/</loc>

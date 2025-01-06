@@ -6,7 +6,60 @@
     <description>Recent content on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Fri, 22 Dec 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jan 2025 21:31:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tanzu Platform Self Managed を試す - Install編</title>
+      <link>https://blog.lespaulstudioplus.info/posts/34/</link>
+      <pubDate>Sun, 05 Jan 2025 21:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/34/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のオンプレ版を試していきます。今回はこの公式の手順に従わず、筆者が作ったカスタムのインストーラーを使います。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Platform Self Managed を試す - 管理者向けProjectセットアップ編</title>
+      <link>https://blog.lespaulstudioplus.info/posts/35/</link>
+      <pubDate>Sun, 05 Jan 2025 21:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/35/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のオンプレ版を試していきます。
+なお、この記事は&lt;a href=&#34;../34&#34;&gt;前回の記事&lt;/a&gt; にしたがったPoC重視の手順であり、正式にサポートされていなく、また製品とも微妙にことなる可能性がございます。&lt;/p&gt;
+&lt;p&gt;ここではTPのインストール後の最初のセットアップとして、必要になるProjectのセットアップを記載していきます。
+ここでの手順は主には、TPの管理者がやる内容を想定です。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Platform Self Managed を試す - 利用者向けSpaceへのデプロイ編</title>
+      <link>https://blog.lespaulstudioplus.info/posts/36/</link>
+      <pubDate>Sun, 05 Jan 2025 21:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/36/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のオンプレ版を試していきます。
+なお、この記事は&lt;a href=&#34;../34&#34;&gt;前回の記事&lt;/a&gt; にしたがったPoC重視の手順であり、正式にサポートされていなく、また製品とも微妙にことなる可能性がございます。&lt;/p&gt;
+&lt;p&gt;ここではTPの利用者の運用方法を記載してきます。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Tanzu Application Platform から Amazon ECS へデプロイをする</title>
       <link>https://blog.lespaulstudioplus.info/posts/33/</link>
@@ -16,32 +69,7 @@
       <description>
         
           
-            &lt;p&gt;&lt;figure&gt;
-  &lt;picture&gt;
-
-    
-      
-        
-        
-        
-        
-        
-        
-    &lt;img
-      loading=&#34;lazy&#34;
-      decoding=&#34;async&#34;
-      alt=&#34;img_6.png&#34;
-      
-        class=&#34;image_figure image_internal image_unprocessed&#34;
-        src=&#34;../../images/33/img_6.png&#34;
-      
-      
-    /&gt;
-
-    &lt;/picture&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;コンテナといったらKubernetes 、というわけではなく、Amazon ECS を多く利用している人もいると思います。
+            &lt;p&gt;コンテナといったらKubernetes 、というわけではなく、Amazon ECS を多く利用している人もいると思います。
 この記事では、Tanzu Application Platform (以後TAP)から Amazon ECS へデプロイする方法を紹介してみます。&lt;/p&gt;
           
           

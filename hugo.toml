@@ -17,7 +17,7 @@ order = [".jpg$", ".gif$"]
 [[deployment.targets]]
 # An arbitrary name for this target.
 name = "lespaulstudioplus"
-URL = "gs://blog.lespaulstudioplus.info"
+URL = "s3://blog.lespaulstudioplus.info?region=ap-northeast-1"
 
 [markup]
   [markup.highlight]
