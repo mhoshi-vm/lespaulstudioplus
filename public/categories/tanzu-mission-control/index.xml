@@ -89,5 +89,23 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
       </description>
     </item>
     
+    <item>
+      <title>Tanzu Mission Controlでの監査ログ</title>
+      <link>https://blog.lespaulstudioplus.info/posts/3/</link>
+      <pubDate>Wed, 09 Sep 2020 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/3/</guid>
+      <description>
+        
+          
+            Tanzu Mission Controlでの、各ユーザーの操作やポリシー違反を監査ログとして取得できます。
+Tanzu Mission Controlとは？ Tanzu Mission Control（以降TMC)とはVMwareが提供しているマルチテナント、マルチクラスター管理のソリューションです。 マルチテナントなので、当然複数ユーザーが使うことが想定されます。
+Tanzu 
+          
+          
+        
+      </description>
+    </item>
+    
   </channel>
 </rss>

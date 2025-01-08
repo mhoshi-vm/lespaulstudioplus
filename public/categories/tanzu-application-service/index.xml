@@ -6,7 +6,48 @@
     <description>Recent content in Tanzu Application Service on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Tue, 24 Nov 2020 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/categories/tanzu-application-service/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Jan 2021 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/categories/tanzu-application-service/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tanzu ObservabilityとSpring Bootで始めるアプリケーション観測</title>
+      <link>https://blog.lespaulstudioplus.info/posts/sbcs_3rd/</link>
+      <pubDate>Fri, 01 Jan 2021 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/sbcs_3rd/</guid>
+      <description>
+        
+          
+            第1回および、第2回の記事でTanzu Observabilityを紹介させていただきました。このシリーズ最後の記事では、Tanzu Observabilityでアプリケーション観測を実現する「分散トレーシング」を紹介させていただきます。
+なお、この記事では初回から引き続き、意図的に「監視」ではなく「観測」(Observe)という表現を使います。
+分散トレーシングとは 「分散トレーシング」という言葉に馴染みがない方々にこれがどういった機能か解説します。
+分散トレーシングとは、アプリケーション可視化の手法の一つであり、Tanzu Observabilityだけでなく、他のベンダー製品やオープンソース(ZipkinやJaegerが代表格)でも使われています。分散トレーシングのキーとなる用語がTraceとSpanです。これをより理解するために、あるREST APIを想像してください。このREST APIがリクエストを受け取り、なんらかの出力を出すまでに流れ、これを分散トレーシングではTraceと呼びます。その一つのTraceが実行される間の個別の処理(e.g. DBへのクエリ、演算、外部サービスの連携)をSpanと呼びます。分散トレーシングとは平たく言えば、このTraceとSpanを見える化して、問題箇所を特定するという技術です。
+(TraceとSpanの例)
+分散トレーシングが注目されるようになった背景が、(また)昨今のマイクロサービスの流れです。マイクロサービスでは、小さな単位のアプリケーションがネットワークで相互に通信を行い、一つの大きなサービスを形成していくことを目指していきます。この際の通信の見える化およびボトルネックの特定に期待されているのが、分散トレーシング技術です。
+Tanzu Observabilityの分散トレーシング機能 Tanzu Obserabilityで使われている分散トレーシングの主な3つの機能を紹介させていただきます。
+トレースビュー トレースビューでは先の分散トレーシングで説明したTraceとSpanの流れを以下のように図式化された状態でみることがことができます。こうすることにより、どの処理にどれくらいの時間がかかったのかなどがみることができるようになっています。またスパンログとよばれる特定のエラーメッセージを保管し、このビューから確認することができます。
+(トレースビュー)
+マップビュー マップビューは、2020年の最後のアップデートでGAされた機能です。トレースビューでは時系列でTraceとSpanの流れを表示することができますが、マップビューでは複数のアプリケーションがどのように連携しているかを図式化されるようになります。またExternal Service機能を使うことにより、データベースやSaaSの通信を可視化することもできようになっており、それらのトラブルシュートにも役立てることができます。
+(マップビュー)
+オフライントレース オフライントレースとは、分散トレーシングの情報を一度ローカルに保存し、後に参照することができます。Traceは非常に高速に大量のデータが転送されるため、重要なものが流れてしまう危険性があります。これをつかうことのよって、データが流れきってしまう前に、ローカルにトレーシング情報を保管できます。そして後に参照することで問題判別に役立てることができます。
+(オフライントレース)
+以上Tanzu Observabilityの分散トレーシングの3つの機能を紹介させていただきました。
+Tanzu ObservabilityとSpring Boot：分散トレーシングをより手ごろに 分散トレーシングは、アプリケーション観測を行うための様々なメリットを提供します。しかし、分散トレーシングを始める上での懸念点の一つが、敷居の高さです。
+まず、最初の悩みが、アプリケーションのコードの改変が必要な点です。ここまで説明してきたTraceやSpanですが、自動的に付与されません。そのため、アプリケーション開発者がSpanの開始点を見極めコーディングすることが要求されます。Tanzu Observabilityの場合は、マニュアルにも紹介されていますが、専用のSDKを使いコードのアップデートが必要です。
+もう一点悩ませるのが環境の用意です。アプリケーション開発の初期段階、検証フェーズの際にTanzu Observabilityのような有償製品を利用は躊躇するかもしれません。そして検証もできず、本番環境の利用も躊躇するという悪循環が起きるかもしれません。
+この懸念点ははTanzu Observability固有のものではなく分散トレーシングをサポートする他の製品でも同様に存在します。そのため、分散トレーシングは多くの企業で着手ができていない観測項目の一つだと思われます。Tanzu Observabilityでは、この懸念に対し他社と比較し独特かつ一線を画すソリューションを提供しています。それはSpring Bootとの強力な連携です。
+Spring Bootとは、開発者の中でもっとも支持されているJavaのフレームワークです。そして、VMwareではこのSpring Bootを強力に推し進めています。
+Tanzu Observabilityでは、Spring Boot開発者達が即座に分散トレーシングを開始できるよう以下の機能を提供しています。
+Tanzu Observabilityの機能をライブラリとして組み込み 2020年の5月にSpring BootとTanzu Observabilityの連携機能がアナウンスされました。この連携と同時にSpring Bootのアプリケーションの雛形を作るサイト、start.spring.ioにて、Tanzu Observabilityの依存関係追加が可能となりました。これによりベンダーロックインなSDKでの開発や専用のエージェントのインストールをすることなく、アプリケーションの標準ライブラリとしてTanzu Observabilityと連携できるようになりました。
+(Spring Bootとの連携)
+さらにポイントなのが、追加のコーディングがほぼなく、分散トレーシングが使えるようになった点です。Spring Bootではもともと、Spring Cloud Sluethとよばれる分散トレーシングを自動で追加するモジュールが提供されていました。Tanzu Observabilityはこれと連携し、アプリケーションのコードを改変せずとも分散トレーシングを実現できる技術を提供しています。
+サインアップ不要の無料ライセンス 上記に加えSpring Bootを使う全てのユーザーがアクセス可能な、Tanzu ObservabilityのFreemium(無料)ライセンスが提供されています。このFreemiumライセンスはメールアドレスすら必要としない、サインアップ不要なものです。
+利用には、先ほど紹介したTanzu Observabilityの依存関係の追加をするだけです。Spring Bootアプリケーション起動時に以下のようなメッセージがコンソールに出力されます。内容にあるよう、自動的にアカウントが作成され、そして専用のログインURLも提供されます。
+1A Wavefront account has been provisioned successfully and the API token has been saved to disk.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Tanzu Application Service(beta)にPacketo Python Buildpackを追加する(改訂版)</title>
       <link>https://blog.lespaulstudioplus.info/posts/12/</link>
@@ -28,6 +69,78 @@ https://console.cloud.google.com/gcr/images/paketo-community/GLOBAL/python?gcrIm
 https://docs.pivotal.io/tas-kubernetes/0-3/installing-tas-for-kubernetes.html#install-tas-for-k8s-from-network
 確認 以下のようにStoreにpythonのビルドパックが表示されれば成功です。
 1$ kubectl get store cf-buildpack-store -o yaml 2... 3- api: &amp;#34;0.2&amp;#34; 4	buildpackage: 5	id: paketo-community/python 6	version: 0.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Observabilityを使ったSaaS型のKubernetes観測</title>
+      <link>https://blog.lespaulstudioplus.info/posts/sbcs_2nd/</link>
+      <pubDate>Tue, 24 Nov 2020 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/sbcs_2nd/</guid>
+      <description>
+        
+          
+            前回の記事でTanzu Observabilityの概要を紹介させていただきました。今回は一歩踏み込んで昨今話題のKubernetes観測について取り上げます。
+なお、この記事では前回に習い、意図的に「監視」ではなく「観測」(Observe)という表現を使います。
+Prometheusから脱却?SaaS型のKubernetes観測のメリットとは Kubernetesの登場により、より柔軟なインフラストラクチャ、そしてアプリケーションをオンデマンドに展開やスケールアップが可能になりました。しかし、それと同時に課題になるのが観測の手法です。
+Kubernetesの観測と聞き、多くの方が最初に思い浮かべるソリューションがPrometheusだと思います。Prometheusは、Cloud Native Computing Foundation(CNCF)のプロジェクトの一つであり、Kubernetes観測の代表格です。特徴としてエージェントに依存せず、サービスディスカバリによって観測対象を自動的にみつけだし収集できることと、PromQLという高速に必要なデータを取り出すクエリ言語をサポートしている点です。きっと皆様も、PoCや本番環境で利用されたことがあると思います。
+しかし、Prometheusの導入によって新たな問題が発生していきます。最初の問題がスケーラビリティです。まず、Prometheusが高可用性(HA)の構成が取りにくいという点です。結果として、複数のPrometheusをKuberntesごとに作るなどの構成になってきてしまいます。当然Prometheusの数に伴い運用の難易度が高くなります。さらに頭を悩ませるのがストレージの容量です。Prometheusのデータ量はKubernetesの規模によって大きくなり、数テラバイト〜数ペタバイドの容量になりうります。
+もう一つの問題がセキュリティです。Prometheusは、 ユーザー認証やアクセス制御の仕組みは機能が充実していません。そのため、Prometheusを複数チームで共有することや、オペレーター以外のユーザーに公開することは難しくなります。 （KubernetesのPrometheus連携とその課題)
+こういった点に疑問を感じ始めたときこそが、SaaS型のKubernetes観測を検討するべきタイミングです。SaaSにすることによって、オンプレミス側の運用を簡素化していきます。さらには、データ容量もSaaSのサービスによって保証されるだけでなく、アップタイムもService Level Agreement(SLA)で保証されます。ユーザー認証もプラットフォームが提供する機能を利用することができます。
+Tanzu ObservabilityはSaaS型プラットフォームであり、Kubernetes環境の観測を次のステップへと昇格させることができます。この記事では、この点の詳細をみていきます。
+Tanzu ObservabilityとPrometheusの連携 冒頭で取り上げたように既にPrometheusをお使いのお客様も多いと思います。Tanzu ObservabilityはPrometheusの運用で培った経験や資産を活かしつつ連携することができます。
+(PrometheusとTanzu Observabilityの連携)
+それを実現する一つ目の機能がPrometheus Storage Adapterです。この機能を使うことにより、PrometheusのデータをTanzu Observabilityに転送をすることができます。この構成のメリットがオンプレミス側のPrometheusを小さくできることです。あくまで、オンプレミスのPrometheusをキャッシュストレージとして使い、データの長期保管をTanzu Observability側にまかせることができます。(Tanzu Observabilityはデータを18ヶ月保管することができます。)
+もう一つの機能がTanzu Observability上でのPromQLのサポートです。今まで使ってきたPromQLをベースとしTanzu Observabilityのダッシュボードやアラートの作成に使うことができます。なお、PromQL自体知名度が高く、使っている方も多いでしょうが、最終的にはTanzu Observabilityが提供するクエリ言語であるWavefront Query Languageに移行することがお勧めです。この言語をつかうことによって100を超える分析手法を中心にTanzu Observabilityの機能を全てつかえるようになるためです。
+さて、複数のPrometheusを一つのSaaSプラットフォームでまとめあげたとき、チームごとのアクセス管理が気になるかもしれません。もしかしたら、チーム間ではみられて困るかもしれないデータがあるかもしれません。この時に役にたつのがMetrics Security機能です。この機能によってPrometheusから転送されるデータそのものにユーザーアクセス制御ができることです。よって複数のPrometheusを１つのプラットフォームにまとめても、マルチテナントやユーザーアクセスを制御できます。
+Wavefront Collector for Kubernetesによるデータ収集 Prometheusをまだ使っていない、もしくはTanzu Observabilityの使い方になれたら次に検討していただきたいのが、Wavefront Collector for Kubernetesをつかい直接Kubernetesをデータを転送することです。
+(Wavefront Collectorを使ったTanzu Observabilityの直接連携)
+この機能をつかうことがお勧めする一つの理由が、Tanzu Observabilityのデフォルトのダッシュボードをつかうことができる点です。このデフォルトのダッシュボードはクラスタ、ノード、ポッドなど階層化されたものになっています。それぞれのダッシュボードから気になる箇所をクリックしていき、ドリルダウンしていくことができます。そうすることで、自分のKubernetesの環境を様々な断面でみていくことができます。 (Cluster, Nodes, Podのダッシュボードの遷移)
+さらにはTroubleShootingダッシュボードとよばれる問題解決に特化したダッシュボードを提供していることです。こうすることで、Kubernetesの問題解決に役立てることができます。
+(Kubernetes TroubleShootingダッシュボード)
+もう一つお勧めする理由がKubernetes以外のミドルウェアとの観測するためのダッシュボードを提供している点です。多くのお客様ではKubernetesの上でApache, MySQL, Memcachedなどのミドルウェアを稼働させていると思います。前回の記事でも紹介したようTanzu Observabilityは250近いインテグレーションを持っています。そしてWavefront Collectorはそれら対応したミドルウェアを自動的にディスカバー、つまり見つけ出し、メトリクスを収集することができます。そして、それらもまたデフォルトのダッシュボードを提供しています。こうすることで、Kubernetesだけでなく、ミドルウェアのレイヤーまで観測を広げることができます。
+(MySQLダッシュボード)
+Wavefront Collectorのインストールですが、Kubernetesの標準的なデプロイツールであるHelmの他に、Tanzu Mission Control経由でインストールできます。Tanzu Mission Controlは（本記事では詳細に取り上げませんが)Kubernetesのライフサイクル管理を行うことができるSaaSプラットフォームであり、Wavefront Collectorを簡単にインストールするためのインテグレーション機能を提供します。以下の画面ショットにあるように、Tanzu Observabilityの認証情報(APIキー)を登録するだけで利用できます。こうすることでKubernetesのライフサイクル管理と、観測を同時に行うことができます。
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>モニタリングはもう古い? Tanzu Observabilityの紹介</title>
+      <link>https://blog.lespaulstudioplus.info/posts/sbcs_1st/</link>
+      <pubDate>Tue, 24 Nov 2020 21:30:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/sbcs_1st/</guid>
+      <description>
+        
+          
+            モニタリングはもう古い? 今Cloud Natvieの業界で「監視」もしくは「モニタリング」という言葉が古くなり始めているという事実をご存知でしょうか？ これに置き換わろうとしているのが「オブザーバビリティー」です。（日本語では「可観測性」と訳され、馴染みがないため、浸透するまでは少し時間がかかりそうです。） 「オブザーバビリティー」がどう意味するかを以下の図で説明します。
+まず、左の絵ですが、体調がわるいという深刻な「アラート」から 「専門家」である医者にみてもらうという行為を表した絵です。これが従来から使われている「モニタリング」を表したものです。ITの世界で置き換えれば、モニタリングシステムの「アラート」をうけて、システムにログインをし、各分野の「専門家」とともに事象を解決していこうとする行為です。これの問題が何かというと、問題復旧までに時間がかかってしまう点です。 アラートがあげる情報はあくまで断片的です。アラートを受けたタイミングから専門家を呼び出し、原因特定が終わった頃には数時間たってしまっている可能性がございます。
+対して、右の絵が「オブザーバビリティー」を表した物です。ジョギングしている人物に、様々なデバイスをつけ、健康なときから、データの収集を常に実施しています。それらのデータはクラウドへと転送され、過去のデータとともに常に分析されます。近い将来、彼のスマートグラスには本人が認識していないような体の異常を通知されるようになるかもしれません。ITの世界でも同じです。自身のシステムを多面的にデータ収集し、アナリティクスをかけていく、そうすることで障害の予兆をピンポイントにキャッチすることが重要になってきます。
+「オブザーバビリティー」が注目られるようになった背景には昨今のシステムの複雑化が関わっています。現在多くのシステムが、より高い柔軟性をもったマイクロサービス型のものへとシフトしつつあります。しかし、それに伴い障害に起因する箇所が多くなっているが故に、問題の特定までに時間がさらにかかります。また、異常がおきる前兆を見つけ出すことも困難です。
+このようなマイクロサービスを従来のようなモニタリング、監視で管理していくのは難しくなってきています。これらのアプリケーションの管理方法としてより即したものが「オブザーバビリティー」です。
+Tanzu Observabilityの紹介 さて今回はVMwareのこの「オブザーバビリティー」を実現する製品として、Tanzu Observabilityを紹介させていただきます。Tanzu ObservabilityとはVMwareが買収したWavefrontから引き継いだSaaSプラットフォームです。(未だ一部の資料ではWavefrontと紹介されることもございますが、同じ物です。)
+Tanzu Observabilityはアプリケーションのデータ収集、可視化および分析を実施できる製品です。 Tanzu Observabilityは以下の特徴を持っています。
+マルチクラウドに対応したSaaS型のプラットフォーム アプリケーションからインフラまでフルスタックに扱える AIやマシンラーニングを活用した高度な分析 ここからはこれらの点を紹介させていただきます。
+マルチクラウドに対応したSaaS型のプラットフォーム Tanzu ObservabilityはSaaSプラットフォームです。SaaSである最大のメリットはデータをオンプレミスに持たなくていい点です。Tanzu Observabilityでは、インテグレーションよばれる単位でお使いのミドルウェアやクラウドと連携し、観測データを取得します。今Tanzu Observabilityは250を超えるインテグレーションがあり、主要なプラットフォーム、マルチクラウドに対応した製品です。
+Integrationの一覧としてはこちらを参照ください。
+https://wavefront.surf/integrations
+Tanzu Observabilityの前身であるWavefrontの頃の強みはアプリケーションレイヤーのインテグレーションが多かった点でした。これに加えTanzuポートフォリオに組み込まれたことによって、VMware関連製品、つまりインフラストラクチャーのレイヤーにも多くのインテグレーションも追加されました。これによって、監視が必要な全てのレイヤーに対し、Tanzu Observabilityを活用できます。
+アプリケーションからインフラまでフルスタックに扱える Tanzu Observabilityはアプリケーションからインフラストラクチャーまでフルスタックに扱うことのできます。Tanzu Observabilityが得意としているのが、マイクロサービスの可視化です。以下のスクリーンショットのようにアプリケーションから受け取った観測データをもとにアプリケーションのマッピングが自動で作成されます。
+図にあるように、SaaSサービスとの連携をも表示できます。さらには、エラーが多いサービスやそれぞれのサービスの応答スピードなどを見ることができます。
+またTanzu Observabilityは多くのインテグレーションをもつ特徴を利用して、アプリケーションからインフラストラクチャまでを一つのダッシュボードで関連を持たせて表示することも可能です。この下の例では、Kubernetesのコンテナーから関連するESXiのデータを表示できます。
+AIやマシンラーニングを活用した高度な分析 Tanzu Observabilityは随所にAI/マシンラーニングを活用した分析を行えるようになっています。 主に以下の箇所で使われています。
+Anomaly Detection : 異常検知 Forcasting : 将来予測 Smart Alert : 関連アラート自動紐付け Tanzu ObservabilityのAIの特徴はすでに学習が完了しているマシンラーニングが即利用可能なものとして提供されている点です。お客様自身が学習させる必要はございません。 異常検知のパターンの例を紹介します。
+上の図では、ある波形が前後の動きから明らかに違う箇所を自動的に検知することができます。こうすることで、アラートの閾値をユーザーが設定することなく、自動で判別することができます。
+さらに、もうひとつSmart Alertの例を紹介します。
+この画面ショットでは&amp;quot;Node memory usage too high&amp;quot;という発報されたアラートの画面ショットです。ここではAI機能が自動的に関連するイベントやアラートの紐付け、さらに疑わしいサーバーの情報をまとめて表示する機能を持っています。こうすることによって、アラートから原因特定までAIの力を借り、すばやく事象の解決につなげることができます。
+まとめ この記事では、モニタリング、監視の次のステップとしてオブザーバビリティーを紹介させていただきました。そして、それを実現するVMware製品であるTanzu Observabilityそして、それらの3つの機能を紹介させていただきました。
           
           
         
