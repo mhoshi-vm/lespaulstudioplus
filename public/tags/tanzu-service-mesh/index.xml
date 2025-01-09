@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tanzu Service Mesh on blog.lespaulstudioplus.info</title>
-    <link>https://blog.lespaulstudioplus.info/tags/tanzu-service-mesh/</link>
+    <link>http://localhost:59803/tags/tanzu-service-mesh/</link>
     <description>Recent content in Tanzu Service Mesh on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 17 Sep 2020 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/tanzu-service-mesh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Sep 2020 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/tags/tanzu-service-mesh/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tanzu Service Meshの分散トレーシングをWavefrontにフォワードする</title>
-      <link>https://blog.lespaulstudioplus.info/posts/4/</link>
+      <link>http://localhost:59803/posts/4/</link>
       <pubDate>Thu, 17 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>https://blog.lespaulstudioplus.info/posts/4/</guid>
+      <guid>http://localhost:59803/posts/4/</guid>
       <description>
         
           
@@ -29,45 +29,6 @@
 結果 うまく設定すれば、以下のように、Wavefrontでみえるようになります。
 なお、厳密にはTSMとみえているものとは一致しないです。これは収集の仕組みが異なるためです。
 まとめ TSMのトレーシングを外部への連携は簡単にできます。
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Tanzu Service Mesh(Istio)でBitnamiのWordpressを動かす</title>
-      <link>https://blog.lespaulstudioplus.info/posts/5_draft/</link>
-      <pubDate>Wed, 09 Sep 2020 21:30:12 +0900</pubDate>
-      
-      <guid>https://blog.lespaulstudioplus.info/posts/5_draft/</guid>
-      <description>
-        
-          
-            TL;DR BitnamiのWordpressをIstio環境下で動かす場合の注意点が複数あります。
-はじめに Bitnami社(現在はVMware社に買収）には、OSSの様々なツールのDockerイメージやHelmチャートを提供しています。
-そんな中、今日は以下をWordpressをインストールします。
-https://github.com/bitnami/charts/tree/master/bitnami/wordpress
-しかし、ただインストールするだけでなく、それをIstio環境でインストールします。 なお、今回は本家のIstioではなく、Tanzu Service Meshを使いました。
-WordpressをIstio下に配置することで、何がうれしいの？ そこまで嬉しくはないかもしれないですが、細かい点としては、以下ができます。
-分散トレーシングができる Wordpressのアクセス数などをモニターできる MySQLの接続もモニターできる mTLSがうれしい（かも？） ネットで検索したら、あまりIstio + Wordpressをやっているものがなかったので、一応記事かしました。
-今回の構成 絵で表すといかになります。
-MariaDB(Istio有効） WordpressにはMySQLデータベースが必要のため、これまたBitnamiのHELMチャートで構成します。 ここにあるものを使います。
-https://github.com/bitnami/charts/tree/master/bitnami/mariadb
-なお、後述しますが、本当はmariadb-galeraのチャートを使いたかったのですが、今回は諦めています。
-NFS(Istio無効) いかで解説されていますが、Wordpressはレプリカ構成の場合、RWXのボリュームが必要です。
-https://engineering.bitnami.com/articles/scaling-wordpress-in-kubernetes.html
-なので、ここではNFSをつかって構成します。 以下のまたBitnamiのHELMチャートを使います。
-https://github.com/helm/charts/tree/master/stable/nfs-server-provisioner
-ここに限って言えば、Istio化するメリットはまったくないようなので、有効にしていません。
-Wordpress(Istio有効) ここをそのまま使います。
-https://github.com/bitnami/charts/tree/master/bitnami/wordpress
-Galeraはあきらめた いかに報告されている事象にあるよう、GaleraがいくらやってもIstioを有効にするとアクセスができなくなってしまいました。
-https://github.com/bitnami/charts/issues/3510
-よって今回はGaleraはあきらめました。
-手順 NFSのデプロイ NFSのデプロイは以下の通りです。 まずNFSサーバーのYamlファイルを以下のように用意します。 storageClassに入る値は環境ごとに調整してください。
-1persistence: 2 enabled: true 3 storageClass: default 4 size: 50Gi そして、NFSをデプロイします。
-1kubectl create ns bitnami-nfs 2kubectl config set-context --current --namespace=bitnami-nfs 3helm install -f nfs-server.yaml nfs-server stable/nfs-server-provisioner MariaDBのデプロイ mariaDBのデプロイは以下の通りです。 まずYamlファイルを以下のように用意します。 storageClassに入る値は環境ごとに調整してください。
           
           
         

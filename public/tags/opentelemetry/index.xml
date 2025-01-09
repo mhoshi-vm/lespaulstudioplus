@@ -2,33 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OpenTelemetry on blog.lespaulstudioplus.info</title>
-    <link>https://blog.lespaulstudioplus.info/tags/opentelemetry/</link>
+    <link>http://localhost:59803/tags/opentelemetry/</link>
     <description>Recent content in OpenTelemetry on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 14 Feb 2021 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/opentelemetry/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>tanzu Kubernetes GridにSysdig Falcoをインストール</title>
-      <link>https://blog.lespaulstudioplus.info/posts/23/</link>
-      <pubDate>Sun, 14 Feb 2021 21:30:12 +0900</pubDate>
-      
-      <guid>https://blog.lespaulstudioplus.info/posts/23/</guid>
-      <description>
-        
-          
-            &lt;p&gt;Tanzu Kubernetes Grid(TKG)にFalcoをインストールした際のメモです。&lt;/p&gt;
-          
-          
-        
-      </description>
-    </item>
-    
+    <lastBuildDate>Sun, 14 Feb 2021 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/tags/opentelemetry/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wavefront &#43; OpenTelemetry Auto Instrumentationで分散トレーシング</title>
-      <link>https://blog.lespaulstudioplus.info/posts/22/</link>
+      <link>http://localhost:59803/posts/22/</link>
       <pubDate>Sun, 14 Feb 2021 21:30:12 +0900</pubDate>
       
-      <guid>https://blog.lespaulstudioplus.info/posts/22/</guid>
+      <guid>http://localhost:59803/posts/22/</guid>
       <description>
         
           

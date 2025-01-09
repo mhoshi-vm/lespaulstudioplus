@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Crossplane on blog.lespaulstudioplus.info</title>
-    <link>https://blog.lespaulstudioplus.info/tags/crossplane/</link>
+    <link>http://localhost:59803/tags/crossplane/</link>
     <description>Recent content in Crossplane on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Fri, 22 Dec 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/crossplane/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Dec 2023 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/tags/crossplane/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tanzu Application Platform から Amazon ECS へデプロイをする</title>
-      <link>https://blog.lespaulstudioplus.info/posts/33/</link>
+      <link>http://localhost:59803/posts/33/</link>
       <pubDate>Fri, 22 Dec 2023 21:30:12 +0900</pubDate>
       
-      <guid>https://blog.lespaulstudioplus.info/posts/33/</guid>
+      <guid>http://localhost:59803/posts/33/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@
     
     <item>
       <title>Crossplane / Upbound にコントリビュートする方法</title>
-      <link>https://blog.lespaulstudioplus.info/posts/32/</link>
+      <link>http://localhost:59803/posts/32/</link>
       <pubDate>Sun, 10 Dec 2023 21:30:12 +0900</pubDate>
       
-      <guid>https://blog.lespaulstudioplus.info/posts/32/</guid>
+      <guid>http://localhost:59803/posts/32/</guid>
       <description>
         
           

@@ -3,7 +3,7 @@ title: "Tanzu Mission Controlで学ぶOpen Policy Agent Part-1"
 date: 2020-09-24T21:30:12+09:00
 categories: [Tanzu Mission Control]
 tags: ["Tanzu Mission Control", "Open Policy Agent"]
-thumbnail: "images/tmc_demanabu_opa/2020-09-24T13-09-22.png"
+thumbnail: "/images/tmc_demanabu_opa/2020-09-24T13-09-22.png"
 featured: true
 ---
 
