@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kbld on blog.lespaulstudioplus.info</title>
-    <link>http://localhost:59803/categories/kbld/</link>
+    <link>https://blog.lespaulstudioplus.info/categories/kbld/</link>
     <description>Recent content in Kbld on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 05 Jan 2023 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/categories/kbld/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/categories/kbld/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>イメージダイジェストをDocker CLIもなく、イメージもダウンロードせずに調べる方法</title>
-      <link>http://localhost:59803/posts/30/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/30/</link>
       <pubDate>Thu, 05 Jan 2023 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/30/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/30/</guid>
       <description>
         
           

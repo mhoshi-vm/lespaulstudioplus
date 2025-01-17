@@ -2,17 +2,51 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on blog.lespaulstudioplus.info</title>
-    <link>http://localhost:59803/posts/</link>
+    <link>https://blog.lespaulstudioplus.info/posts/</link>
     <description>Recent content in Posts on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Wed, 08 Jan 2025 09:31:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Jan 2025 12:31:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tanzu Platform Self Managed を試す - 管理者向けDNSへの自動登録</title>
+      <link>https://blog.lespaulstudioplus.info/posts/39/</link>
+      <pubDate>Fri, 17 Jan 2025 12:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/39/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のオンプレ版を試していきまます。&lt;/p&gt;
+&lt;p&gt;ここでは、 デプロイしたアプリのDNSの登録について紹介します。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Platform Self Managed を試す - 管理者向け通信のHTTPS化</title>
+      <link>https://blog.lespaulstudioplus.info/posts/38/</link>
+      <pubDate>Thu, 16 Jan 2025 09:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/38/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のオンプレ版を試していきます。&lt;/p&gt;
+&lt;p&gt;ここでは、 アプリのHTTPS通信を有効にする方法を紹介します。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Tanzu Platform Self Managed を試す - 管理者向けデプロイ先の軽量化編</title>
-      <link>http://localhost:59803/posts/37/</link>
-      <pubDate>Wed, 08 Jan 2025 09:31:12 +0900</pubDate>
+      <link>https://blog.lespaulstudioplus.info/posts/37/</link>
+      <pubDate>Wed, 08 Jan 2025 09:32:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/37/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/37/</guid>
       <description>
         
           
@@ -27,10 +61,10 @@
     
     <item>
       <title>Tanzu Platform Self Managed を試す - 利用者向けSpaceへのデプロイ編</title>
-      <link>http://localhost:59803/posts/36/</link>
-      <pubDate>Tue, 07 Jan 2025 09:33:12 +0900</pubDate>
+      <link>https://blog.lespaulstudioplus.info/posts/36/</link>
+      <pubDate>Tue, 07 Jan 2025 09:34:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/36/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/36/</guid>
       <description>
         
           
@@ -44,10 +78,10 @@
     
     <item>
       <title>Tanzu Platform Self Managed を試す - 管理者向けProjectセットアップ編</title>
-      <link>http://localhost:59803/posts/35/</link>
-      <pubDate>Mon, 06 Jan 2025 21:31:12 +0900</pubDate>
+      <link>https://blog.lespaulstudioplus.info/posts/35/</link>
+      <pubDate>Mon, 06 Jan 2025 21:35:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/35/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/35/</guid>
       <description>
         
           
@@ -62,10 +96,10 @@
     
     <item>
       <title>Tanzu Platform Self Managed を試す - Install編</title>
-      <link>http://localhost:59803/posts/34/</link>
-      <pubDate>Sun, 05 Jan 2025 21:32:12 +0900</pubDate>
+      <link>https://blog.lespaulstudioplus.info/posts/34/</link>
+      <pubDate>Sun, 05 Jan 2025 21:33:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/34/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/34/</guid>
       <description>
         
           
@@ -78,10 +112,10 @@
     
     <item>
       <title>Tanzu Application Platform から Amazon ECS へデプロイをする</title>
-      <link>http://localhost:59803/posts/33/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/33/</link>
       <pubDate>Fri, 22 Dec 2023 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/33/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/33/</guid>
       <description>
         
           
@@ -95,10 +129,10 @@
     
     <item>
       <title>Crossplane / Upbound にコントリビュートする方法</title>
-      <link>http://localhost:59803/posts/32/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/32/</link>
       <pubDate>Sun, 10 Dec 2023 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/32/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/32/</guid>
       <description>
         
           
@@ -113,10 +147,10 @@
     
     <item>
       <title>SpringでOpenAIのストリーミングアウトプットに対応したアプリケーションを作成する</title>
-      <link>http://localhost:59803/posts/31/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/31/</link>
       <pubDate>Mon, 04 Dec 2023 16:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/31/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/31/</guid>
       <description>
         
           
@@ -130,10 +164,10 @@
     
     <item>
       <title>イメージダイジェストをDocker CLIもなく、イメージもダウンロードせずに調べる方法</title>
-      <link>http://localhost:59803/posts/30/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/30/</link>
       <pubDate>Thu, 05 Jan 2023 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/30/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/30/</guid>
       <description>
         
           
@@ -146,10 +180,10 @@
     
     <item>
       <title>Kpackのイメージ作成完了をGithubに通知するKubernetes Controllerを実装してみた</title>
-      <link>http://localhost:59803/posts/29/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/29/</link>
       <pubDate>Mon, 19 Dec 2022 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/29/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/29/</guid>
       <description>
         
           
@@ -162,10 +196,10 @@
     
     <item>
       <title>Spring Cloud Bindings の Bindings をコンテナ化にせずアクセスする</title>
-      <link>http://localhost:59803/posts/28/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/28/</link>
       <pubDate>Tue, 13 Sep 2022 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/28/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/28/</guid>
       <description>
         
           
@@ -178,10 +212,10 @@
     
     <item>
       <title>TKG 1.3で複数Prometheusを一つにFederateする</title>
-      <link>http://localhost:59803/posts/27/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/27/</link>
       <pubDate>Mon, 05 Jul 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/27/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/27/</guid>
       <description>
         
           
@@ -194,10 +228,10 @@
     
     <item>
       <title>ConcourseとGithubとの相性まとめ</title>
-      <link>http://localhost:59803/posts/26/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/26/</link>
       <pubDate>Wed, 03 Mar 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/26/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/26/</guid>
       <description>
         
           
@@ -210,10 +244,10 @@
     
     <item>
       <title>Tanzu BuildpackでSonarQubeのテストと統合する</title>
-      <link>http://localhost:59803/posts/25/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/25/</link>
       <pubDate>Wed, 03 Mar 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/25/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/25/</guid>
       <description>
         
           
@@ -226,10 +260,10 @@
     
     <item>
       <title>Tanzu Java BuildpackでSnykのテストを有効化する</title>
-      <link>http://localhost:59803/posts/24/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/24/</link>
       <pubDate>Tue, 02 Mar 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/24/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/24/</guid>
       <description>
         
           
@@ -242,10 +276,10 @@
     
     <item>
       <title>Wavefront &#43; OpenTelemetry Auto Instrumentationで分散トレーシング</title>
-      <link>http://localhost:59803/posts/22/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/22/</link>
       <pubDate>Sun, 14 Feb 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/22/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/22/</guid>
       <description>
         
           
@@ -258,10 +292,10 @@
     
     <item>
       <title>Pinnipedを試す</title>
-      <link>http://localhost:59803/posts/21/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/21/</link>
       <pubDate>Wed, 10 Feb 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/21/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/21/</guid>
       <description>
         
           
@@ -274,10 +308,10 @@
     
     <item>
       <title>GemfireをTKGにインストールする</title>
-      <link>http://localhost:59803/posts/20/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/20/</link>
       <pubDate>Fri, 29 Jan 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/20/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/20/</guid>
       <description>
         
           
@@ -290,10 +324,10 @@
     
     <item>
       <title>Tanzu Observability &#43; MetricsSecurityで実現するマルチテナント構成</title>
-      <link>http://localhost:59803/posts/18/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/18/</link>
       <pubDate>Fri, 15 Jan 2021 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/18/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/18/</guid>
       <description>
         
           
@@ -306,10 +340,10 @@
     
     <item>
       <title>TMCのポリシー違反の情報をTanzu Observabilityからモニターする</title>
-      <link>http://localhost:59803/posts/15/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/15/</link>
       <pubDate>Wed, 02 Dec 2020 22:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/15/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/15/</guid>
       <description>
         
           
@@ -322,10 +356,10 @@
     
     <item>
       <title>Spring AOPでTanzu ObservabilityのDB通信を可視化する</title>
-      <link>http://localhost:59803/posts/14/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/14/</link>
       <pubDate>Wed, 02 Dec 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/14/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/14/</guid>
       <description>
         
           
@@ -338,10 +372,10 @@
     
     <item>
       <title>Tanzu Application Service(beta)にPacketo Python Buildpackを追加する(改訂版)</title>
-      <link>http://localhost:59803/posts/12/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/12/</link>
       <pubDate>Tue, 24 Nov 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/12/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/12/</guid>
       <description>
         
           
@@ -365,10 +399,10 @@ https://docs.pivotal.io/tas-kubernetes/0-3/installing-tas-for-kubernetes.html#in
     
     <item>
       <title>Tanzu ObservabilityでDBの通信を可視化する</title>
-      <link>http://localhost:59803/posts/10/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/10/</link>
       <pubDate>Wed, 11 Nov 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/10/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/10/</guid>
       <description>
         
           
@@ -381,10 +415,10 @@ https://docs.pivotal.io/tas-kubernetes/0-3/installing-tas-for-kubernetes.html#in
     
     <item>
       <title>Tanzu Service Managerを手っ取り早くインストール</title>
-      <link>http://localhost:59803/posts/9/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/9/</link>
       <pubDate>Wed, 28 Oct 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/9/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/9/</guid>
       <description>
         
           
@@ -411,10 +445,10 @@ Tanzu Networkのユーザー/パスワード SYSTEMDOMAINはTAS4K8Sで使用し�
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-4</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa-04/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-04/</link>
       <pubDate>Thu, 15 Oct 2020 16:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa-04/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-04/</guid>
       <description>
         
           
@@ -427,10 +461,10 @@ Tanzu Networkのユーザー/パスワード SYSTEMDOMAINはTAS4K8Sで使用し�
     
     <item>
       <title>Tanzu Application Service(beta)にPacketo Python Buildpackを追加する</title>
-      <link>http://localhost:59803/posts/7/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/7/</link>
       <pubDate>Wed, 14 Oct 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/7/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/7/</guid>
       <description>
         
           
@@ -452,10 +486,10 @@ The Python buildpack is not anywhere near the same level of support as Ruby. Rub
     
     <item>
       <title>OPAのReviewするInputの中身を取り出す</title>
-      <link>http://localhost:59803/posts/6/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/6/</link>
       <pubDate>Thu, 01 Oct 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/6/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/6/</guid>
       <description>
         
           
@@ -470,10 +504,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-3</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa-03/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-03/</link>
       <pubDate>Thu, 01 Oct 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa-03/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-03/</guid>
       <description>
         
           
@@ -486,10 +520,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-2</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa-02/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-02/</link>
       <pubDate>Wed, 30 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa-02/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-02/</guid>
       <description>
         
           
@@ -502,10 +536,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-1</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa/</link>
       <pubDate>Thu, 24 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa/</guid>
       <description>
         
           
@@ -518,10 +552,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Application Service(for k8s)の分散トレーシングをWavefrontにフォワードする</title>
-      <link>http://localhost:59803/posts/1/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/1/</link>
       <pubDate>Thu, 17 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/1/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/1/</guid>
       <description>
         
           
@@ -544,10 +578,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Tanzu Service Meshの分散トレーシングをWavefrontにフォワードする</title>
-      <link>http://localhost:59803/posts/4/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/4/</link>
       <pubDate>Thu, 17 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/4/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/4/</guid>
       <description>
         
           
@@ -572,10 +606,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Cloud Native Days Tokyoでしゃべりました</title>
-      <link>http://localhost:59803/posts/2/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/2/</link>
       <pubDate>Wed, 09 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/2/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/2/</guid>
       <description>
         
           
@@ -588,10 +622,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶHorizontal Pod Autoscaler Part-3</title>
-      <link>http://localhost:59803/posts/wf-demanabu-hpa-03/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-03/</link>
       <pubDate>Sun, 23 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-hpa-03/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-03/</guid>
       <description>
         
           
@@ -604,10 +638,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶHorizontal Pod Autoscaler Part-2</title>
-      <link>http://localhost:59803/posts/wf-demanabu-hpa-02/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-02/</link>
       <pubDate>Sat, 22 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-hpa-02/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-02/</guid>
       <description>
         
           
@@ -620,10 +654,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶHorizontol Pod Autoscaler Part-1</title>
-      <link>http://localhost:59803/posts/wf-demanabu-hpa/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa/</link>
       <pubDate>Fri, 21 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-hpa/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa/</guid>
       <description>
         
           
@@ -636,10 +670,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-7</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt-07/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-07/</link>
       <pubDate>Thu, 20 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt-07/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-07/</guid>
       <description>
         
           
@@ -652,10 +686,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-6</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt-06/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-06/</link>
       <pubDate>Wed, 19 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt-06/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-06/</guid>
       <description>
         
           
@@ -668,10 +702,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-5</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt-05/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-05/</link>
       <pubDate>Tue, 18 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt-05/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-05/</guid>
       <description>
         
           
@@ -684,10 +718,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-4</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt-04/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-04/</link>
       <pubDate>Mon, 17 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt-04/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-04/</guid>
       <description>
         
           
@@ -700,10 +734,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-3</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt-03/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-03/</link>
       <pubDate>Sun, 16 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt-03/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-03/</guid>
       <description>
         
           
@@ -716,10 +750,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-2</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt-02/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-02/</link>
       <pubDate>Sat, 15 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt-02/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-02/</guid>
       <description>
         
           
@@ -732,10 +766,10 @@ TASのインストールを仕掛ける前に以下のconfiguration-value/zipkin
     
     <item>
       <title>Wavefrontで学ぶ分散トレーシング Part-1</title>
-      <link>http://localhost:59803/posts/wf-demanabu-dt/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt/</link>
       <pubDate>Fri, 14 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-dt/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt/</guid>
       <description>
         
           

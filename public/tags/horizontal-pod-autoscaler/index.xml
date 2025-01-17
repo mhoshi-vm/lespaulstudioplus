@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Horizontal Pod Autoscaler on blog.lespaulstudioplus.info</title>
-    <link>http://localhost:59803/tags/horizontal-pod-autoscaler/</link>
+    <link>https://blog.lespaulstudioplus.info/tags/horizontal-pod-autoscaler/</link>
     <description>Recent content in Horizontal Pod Autoscaler on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 23 Aug 2020 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/tags/horizontal-pod-autoscaler/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Aug 2020 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/horizontal-pod-autoscaler/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wavefrontで学ぶHorizontal Pod Autoscaler Part-3</title>
-      <link>http://localhost:59803/posts/wf-demanabu-hpa-03/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-03/</link>
       <pubDate>Sun, 23 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-hpa-03/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-03/</guid>
       <description>
         
           
@@ -25,10 +25,10 @@
     
     <item>
       <title>Wavefrontで学ぶHorizontal Pod Autoscaler Part-2</title>
-      <link>http://localhost:59803/posts/wf-demanabu-hpa-02/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-02/</link>
       <pubDate>Sat, 22 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-hpa-02/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa-02/</guid>
       <description>
         
           
@@ -41,10 +41,10 @@
     
     <item>
       <title>Wavefrontで学ぶHorizontol Pod Autoscaler Part-1</title>
-      <link>http://localhost:59803/posts/wf-demanabu-hpa/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa/</link>
       <pubDate>Fri, 21 Aug 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/wf-demanabu-hpa/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/wf-demanabu-hpa/</guid>
       <description>
         
           

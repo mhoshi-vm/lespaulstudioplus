@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Spring Cloud Bindings on blog.lespaulstudioplus.info</title>
-    <link>http://localhost:59803/tags/spring-cloud-bindings/</link>
+    <link>https://blog.lespaulstudioplus.info/tags/spring-cloud-bindings/</link>
     <description>Recent content in Spring Cloud Bindings on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Tue, 13 Sep 2022 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/tags/spring-cloud-bindings/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Sep 2022 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/spring-cloud-bindings/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spring Cloud Bindings の Bindings をコンテナ化にせずアクセスする</title>
-      <link>http://localhost:59803/posts/28/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/28/</link>
       <pubDate>Tue, 13 Sep 2022 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/28/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/28/</guid>
       <description>
         
           

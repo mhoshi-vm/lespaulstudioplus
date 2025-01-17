@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tanzu Service Mesh on blog.lespaulstudioplus.info</title>
-    <link>http://localhost:59803/categories/tanzu-service-mesh/</link>
+    <link>https://blog.lespaulstudioplus.info/categories/tanzu-service-mesh/</link>
     <description>Recent content in Tanzu Service Mesh on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Thu, 17 Sep 2020 21:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/categories/tanzu-service-mesh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Sep 2020 21:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/categories/tanzu-service-mesh/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tanzu Service Meshの分散トレーシングをWavefrontにフォワードする</title>
-      <link>http://localhost:59803/posts/4/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/4/</link>
       <pubDate>Thu, 17 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/4/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/4/</guid>
       <description>
         
           

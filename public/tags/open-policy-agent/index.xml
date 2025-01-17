@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Open Policy Agent on blog.lespaulstudioplus.info</title>
-    <link>http://localhost:59803/tags/open-policy-agent/</link>
+    <link>https://blog.lespaulstudioplus.info/tags/open-policy-agent/</link>
     <description>Recent content in Open Policy Agent on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Wed, 02 Dec 2020 22:30:12 +0900</lastBuildDate><atom:link href="http://localhost:59803/tags/open-policy-agent/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Dec 2020 22:30:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/tags/open-policy-agent/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TMCのポリシー違反の情報をTanzu Observabilityからモニターする</title>
-      <link>http://localhost:59803/posts/15/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/15/</link>
       <pubDate>Wed, 02 Dec 2020 22:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/15/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/15/</guid>
       <description>
         
           
@@ -25,10 +25,10 @@
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-4</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa-04/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-04/</link>
       <pubDate>Thu, 15 Oct 2020 16:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa-04/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-04/</guid>
       <description>
         
           
@@ -41,10 +41,10 @@
     
     <item>
       <title>OPAのReviewするInputの中身を取り出す</title>
-      <link>http://localhost:59803/posts/6/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/6/</link>
       <pubDate>Thu, 01 Oct 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/6/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/6/</guid>
       <description>
         
           
@@ -59,10 +59,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-3</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa-03/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-03/</link>
       <pubDate>Thu, 01 Oct 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa-03/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-03/</guid>
       <description>
         
           
@@ -75,10 +75,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-2</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa-02/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-02/</link>
       <pubDate>Wed, 30 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa-02/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa-02/</guid>
       <description>
         
           
@@ -91,10 +91,10 @@ Rego言語をテストするのにRego Playgroundが使えます。&lt;/p&gt;
     
     <item>
       <title>Tanzu Mission Controlで学ぶOpen Policy Agent Part-1</title>
-      <link>http://localhost:59803/posts/tmc-demanabu-opa/</link>
+      <link>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa/</link>
       <pubDate>Thu, 24 Sep 2020 21:30:12 +0900</pubDate>
       
-      <guid>http://localhost:59803/posts/tmc-demanabu-opa/</guid>
+      <guid>https://blog.lespaulstudioplus.info/posts/tmc-demanabu-opa/</guid>
       <description>
         
           
