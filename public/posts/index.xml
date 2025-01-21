@@ -6,11 +6,47 @@
     <description>Recent content in Posts on blog.lespaulstudioplus.info</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Fri, 17 Jan 2025 12:31:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jan 2025 13:31:12 +0900</lastBuildDate><atom:link href="https://blog.lespaulstudioplus.info/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Tanzu Platform Self Managed を試す - 管理者向けDNSへの自動登録</title>
+      <title>Tanzu Platform の知らなくてもいい話- Capabilities/Profiles</title>
+      <link>https://blog.lespaulstudioplus.info/posts/42/</link>
+      <pubDate>Tue, 21 Jan 2025 13:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/42/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のマニアックすぎてブログに書くのを躊躇した内容を書いていきます。
+注意点ですが、ここから書くことは「知らなくてもいい」ことです。&lt;/p&gt;
+&lt;p&gt;今回は Capabilities / Profiles を解説します。なお、この記事は &lt;a href=&#34;../40&#34;&gt;KCP/Kine&lt;/a&gt; の理解が前提です。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Platform の知らなくてもいい話- Kine/KCP</title>
+      <link>https://blog.lespaulstudioplus.info/posts/41/</link>
+      <pubDate>Tue, 21 Jan 2025 12:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/41/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のマニアックすぎてブログに書くのを躊躇した内容を書いていきます。
+注意点ですが、ここから書くことは「知らなくてもいい」ことです。&lt;/p&gt;
+&lt;p&gt;今回は Kine / KCP を解説します。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Platform Self Managed を試す - 管理者向け：DNSへの自動登録</title>
       <link>https://blog.lespaulstudioplus.info/posts/39/</link>
-      <pubDate>Fri, 17 Jan 2025 12:31:12 +0900</pubDate>
+      <pubDate>Fri, 17 Jan 2025 12:32:12 +0900</pubDate>
       
       <guid>https://blog.lespaulstudioplus.info/posts/39/</guid>
       <description>
@@ -25,9 +61,26 @@
     </item>
     
     <item>
-      <title>Tanzu Platform Self Managed を試す - 管理者向け通信のHTTPS化</title>
+      <title>Tanzu Platform Self Managed を試す - 利用者向け：アプリケーションへのシークレット受け渡し</title>
+      <link>https://blog.lespaulstudioplus.info/posts/40/</link>
+      <pubDate>Fri, 17 Jan 2025 12:31:12 +0900</pubDate>
+      
+      <guid>https://blog.lespaulstudioplus.info/posts/40/</guid>
+      <description>
+        
+          
+            &lt;p&gt;最新製品である Tanzu Platform のオンプレ版を試していきまます。&lt;/p&gt;
+&lt;p&gt;ここでは、 デプロイしたアプリへのシークレット情報の受け渡し方法を紹介します。&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Tanzu Platform Self Managed を試す - 管理者向け：通信のHTTPS化</title>
       <link>https://blog.lespaulstudioplus.info/posts/38/</link>
-      <pubDate>Thu, 16 Jan 2025 09:31:12 +0900</pubDate>
+      <pubDate>Thu, 16 Jan 2025 09:32:12 +0900</pubDate>
       
       <guid>https://blog.lespaulstudioplus.info/posts/38/</guid>
       <description>
@@ -42,9 +95,9 @@
     </item>
     
     <item>
-      <title>Tanzu Platform Self Managed を試す - 管理者向けデプロイ先の軽量化編</title>
+      <title>Tanzu Platform Self Managed を試す - 管理者向け：デプロイ先の軽量化編</title>
       <link>https://blog.lespaulstudioplus.info/posts/37/</link>
-      <pubDate>Wed, 08 Jan 2025 09:32:12 +0900</pubDate>
+      <pubDate>Wed, 08 Jan 2025 09:33:12 +0900</pubDate>
       
       <guid>https://blog.lespaulstudioplus.info/posts/37/</guid>
       <description>
@@ -60,9 +113,9 @@
     </item>
     
     <item>
-      <title>Tanzu Platform Self Managed を試す - 利用者向けSpaceへのデプロイ編</title>
+      <title>Tanzu Platform Self Managed を試す - 利用者向け：Spaceへのデプロイ編</title>
       <link>https://blog.lespaulstudioplus.info/posts/36/</link>
-      <pubDate>Tue, 07 Jan 2025 09:34:12 +0900</pubDate>
+      <pubDate>Tue, 07 Jan 2025 09:35:12 +0900</pubDate>
       
       <guid>https://blog.lespaulstudioplus.info/posts/36/</guid>
       <description>
@@ -77,9 +130,9 @@
     </item>
     
     <item>
-      <title>Tanzu Platform Self Managed を試す - 管理者向けProjectセットアップ編</title>
+      <title>Tanzu Platform Self Managed を試す - 管理者向け：Projectセットアップ編</title>
       <link>https://blog.lespaulstudioplus.info/posts/35/</link>
-      <pubDate>Mon, 06 Jan 2025 21:35:12 +0900</pubDate>
+      <pubDate>Mon, 06 Jan 2025 21:36:12 +0900</pubDate>
       
       <guid>https://blog.lespaulstudioplus.info/posts/35/</guid>
       <description>
@@ -97,7 +150,7 @@
     <item>
       <title>Tanzu Platform Self Managed を試す - Install編</title>
       <link>https://blog.lespaulstudioplus.info/posts/34/</link>
-      <pubDate>Sun, 05 Jan 2025 21:33:12 +0900</pubDate>
+      <pubDate>Sun, 05 Jan 2025 21:34:12 +0900</pubDate>
       
       <guid>https://blog.lespaulstudioplus.info/posts/34/</guid>
       <description>
