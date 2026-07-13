@@ -1,0 +1,29 @@
+---
+title: "Trying Tanzu Platform Self Managed — For Users: Passing Secrets to Applications"
+date: 2025-01-17T12:31:12+09:00
+categories: ["Tanzu Platform"]
+tags: ["Tanzu Platform"]
+thumbnail: "aeba8b9e.png"
+draft: true
+---
+
+Let's try the on-prem edition of the latest product, Tanzu Platform.
+
+This post covers how to pass secret information to deployed apps.
+<!--more-->
+
+# Series
+
+- [Installation](../34)
+- [For admins: Project setup](../35)
+- [For users: Deploying to a Space](../36)
+- [For admins: Slimming down the deploy target](../37)
+- [For admins: Enabling HTTPS](../38)
+- [For admins: Automatic DNS registration](../39)
+- **Here>** For users: Passing secrets to applications
+
+Bonus: [The "Things You Don't Need to Know about Tanzu Platform" series](/categories/tanzu-platform-for-maniacs/)
+
+# Passing secrets to applications
+
+Suppose we want to hand over a DB password like the following

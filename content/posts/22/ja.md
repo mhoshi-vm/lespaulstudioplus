@@ -1,0 +1,177 @@
+---
+title: "Wavefront + OpenTelemetry Auto Instrumentationで分散トレーシング"
+date: 2021-02-14T21:30:12+09:00
+categories: ["Tanzu Observability"]
+tags: ["Tanzu Observability", "Wavefront", "OpenTelemetry", "Distributed Tracing"]
+thumbnail: "2021-02-15T14-51-10.png"
+---
+
+OpenTelemetryのAuto Instrumentation機能を使えば、分散トレーシングも楽々です。<!--more-->
+
+## はじめに
+
+OpenTelemetryというプロジェクトがCNCF界隈で現在盛り上がっています。これは分散トレーシングをより手ごろにという目的で、分散トレーシングの規約などを作っています。
+
+そもそも分散トレーシングとは?の人は、以下を参照して下さい。
+
+[Wavefrontで学ぶ分散トレーシング](https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt/)
+
+さて、もともと[この回](https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-05/index.html)でも紹介したように、PythonなどのLLでの分散トレーシングはコードのアップデート箇所が多く、ハードルが高いものでした。
+
+しかし、そんな中、OpenTelemetryにはコーディングをほとんどしなくていいAuto Instrumentation機能の開発と提供がされています。
+
+今回はそれを試すだけでなく、Wavefront(aka Tanzu Observability)と連携する方法を紹介します。
+
+![](2021-02-15T14-51-10.png)
+
+## 前提
+
+今回必要なのは以下です。
+
+* Python 3
+
+インストール方法は[こちら](https://www.python.org/downloads/)を参照してください。
+相変わらずですが高度なエディターは不要です。
+
+
+Pythonがインストールできたら、まずは、依存関係をローカルでのみテストしたいので、`virtualenv`を作ります。任意のディレクトリーで以下を実行してください。
+
+```bash
+virtualenv env
+source env/bin/activate
+```
+
+また何かしらのWavefrontのアカウントが必要です。無料で済ませたい場合、[この回](https://blog.lespaulstudioplus.info/posts/wf-demanabu-dt-02/index.html)で書いたようとりあえず、Spring Boot経由でFreemiumライセンスを取得することでも試せます。
+
+## ソースコード
+
+ここに公開しています。
+
+https://github.com/mhoshi-vm/wf-python-opentelemetry
+
+## 構成
+
+構成図のイメージは以下です。
+
+![](2021-02-16T04-10-17.png)
+
+ポイントは以下です。
+
+* OpenTelemetry Auto InstrumentationがPythonのアプリケーションを監視
+* OpenTelemetery のZipkin Exporterを使いトレース・スパンを転送
+* Wavefront ProxyのZipkin Listen Portでトレースを受け取り
+* Wavefront ProxyからTanzu Observabiityへ転送
+
+## 手順
+
+### レポジトリーのクローン
+
+どこでもいいので、いかのようにレポジトリーをクローンします。
+
+```
+git clone https://github.com/mhoshi-vm/wf-python-opentelemetry
+cd wf-python-opentelemetry
+```
+
+### Wavefront Proxyのインストール
+
+以下の手順にしたがって、Wavefront Proxyをインストールします。
+
+https://docs.wavefront.com/proxies_installing.html
+
+OSによって違いますが、例えばMacOSなら以下で実施できます。
+
+```
+brew tap wavefrontHQ/wavefront
+brew install wfproxy
+```
+
+### Wavefront Proxy の起動
+
+まず、`wavefront_mon.conf`を少しいじります。
+
+```
+vi wavefront_mod.conf
+```
+
+以下の行をWavefrontのアカウント情報にします。
+
+```
+server=https://wavefront.surf/
+token=xxxx
+```
+
+そして、以下の方法でWavefront Proxyを起動します。
+
+```
+wfproxy -f wavefront_mod.conf
+```
+別プロンプトで作業を進めます。
+
+### Pythonの依存関係のインストール
+
+以下のコマンドで依存関係をインストールします。なお執筆時点では、OpenTelemetery関連のライブラリー全てのバージョンを0.17b0に統一しないとうまく動きませんでした。
+
+```
+pip install -r requirements.txt
+```
+
+### アプリケーションの起動
+
+まず、今回のアプリケーションですが、以下のとおり超シンプルなHello Worldのアプリです。コード側には一切の分散トレーシングのロジックはないです。
+
+```python
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+if __name__ == '__main__':
+    app.run(debug=True,host='0.0.0.0')
+```
+
+まず、起動前に以下の環境変数をExportします。
+
+```
+export OTEL_EXPORTER=zipkin
+export OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://localhost:9411/api/v2/spans
+export OTEL_SERVICE_NAME="hello"
+```
+
+そしていよいよ以下のコマンドでアプリを起動します。
+
+```
+opentelemetry-instrument python3 ./hello.py
+```
+
+無事に起動したら別のプロンプトで、以下のようにcurlで数回アクセスします。
+
+```
+curl localhost:5000
+```
+
+## 動作確認
+
+Wavefrontにログインします。うまくいくと以下のようにトレース情報がみえてくるはずです。
+
+![](2021-02-15T14-44-15.png)
+
+ダッシュボードも以下のようになります。
+
+![](2021-02-15T14-44-56.png)
+
+そして、個別のトレースもいかのように出現します。
+
+![](2021-02-15T14-48-08.png)
+
+素晴らしい。繰り返しですが、Python側に特に分散トレーシングのコードを仕込まなくてもこのレベルの情報が取れています。
+
+なお、OpenTelemetryはまだ発展中のプロジェクトのため、飛びつくことはお勧めしませんが、このように検証として使ってみて、実用を検討するのはありだと思います。
+
+## まとめ
+
+OpenTelemetryのAuto Instrumentationで自動的に分散トレーシングをする方法を紹介しました。
+またWavefrontとの連携も楽にできることを紹介しました。

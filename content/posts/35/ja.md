@@ -1,0 +1,172 @@
+---
+title: "Tanzu Platform Self Managed を試す - 管理者向け：Projectセットアップ編"
+date: 2025-01-06T21:36:12+09:00
+categories: ["Tanzu Platform"]
+tags: ["Tanzu Platform"]
+thumbnail: "aeba8b9e.png"
+---
+
+最新製品である Tanzu Platform のオンプレ版を試していきます。
+
+ここではTPのインストール後の最初のセットアップとして、必要になるProjectのセットアップを記載していきます。
+ここでの手順は主には、TPの管理者がやる内容を想定です。<!--more-->
+
+# シリーズ
+
+- [Install編](../34)
+- **ここ>** 管理者向け：Projectセットアップ編
+- [利用者向け：Spaceへのデプロイ編](../36)
+- [管理者向け：デプロイ先の軽量化編](../37)
+- [管理者向け：通信のHTTPS化](../38)
+- [管理者向け：DNSへの自動登録](../39)
+
+- おまけ：[「Tanzu Platform の知らなくてもいい話」シリーズ](/categories/tanzu-platform-for-maniacs/)
+
+# 事前準備
+
+まずデフォルトの `tanzu_platform_admin` のパスワードは以下でとれます。
+
+```
+kubectl get secret tp-pass -n tanzusm -o jsonpath={.data.pass} | base64 -d
+```
+
+インストーラーがデフォルトで作成した自己署名証明書も他の手順で使うので手元においておきます。
+
+```
+kubectl get secret -n tanzusm tp-cert  -o jsonpath="{.data.tls\.crt}" | base64 -d > tp.crt 
+```
+
+最後に、インストーラーが作成したエンドポイントを取得します。
+ここで表示されたエンドポイントのIPアドレス or アドレスをインストーラーで設定したFQDNを/etc/hostsかDNSでマッピングされるようにします。
+
+```
+kubectl get svc -n tanzusm contour-envoy -o jsonpath="{.status.loadBalancer.ingress[0].ip}"
+```
+
+# Project 作成
+
+TPのインストールを完了したら、最初にやるのがログインして、最初のプロジェクトをつくることです。
+
+以下のURLにアクセスします。最初にログインできるユーザーは`tanzu_platform_admin`です。パスワードは事前準備でつかったものを指定します。
+
+![](5dd3ef17.png)
+
+ログインが完了したら、左ペインから、[Setup & Configuration] > [Access Control] を選択します。
+[Add Role Binding]を選択します。ここでは、user groups を `tpadmins` (特に小文字"s"をわすれずに)にしてください。カスタマイズされたインストーラーを使っている場合、これはOpenLDAP上のグループ名とも一致しているので間違えないようにしてください。
+
+![](c426da04.png)
+
+その次に左ペインから、[Setup & Configuration] > [Projects] を選択します。[New Project] を選択します。
+プロジェクト名は特にOpenLDAPとは連動しないので、自由な名前でいいです。ここでは `tpadmin`をつかっています。
+そして、追加するユーザーは `tpadmin` にしてください。これは、OpenLDAPと連動しているので、一致させてください。
+
+![](0698b33c.png)
+
+ここまできたら、一度ログアウトします。そして、ユーザーは `tpadmin`、パスワードは `tpsm1!` で入り直します。
+ユーザーが切り替わったことを確認します。
+
+![](b7212b63.png)
+
+また、左上のプロジェクト選択も、tpadminになっていることを確認します。
+
+![](783cb9f0.png)
+
+# Workload クラスタを登録
+
+プロジェクトを作ったら、次にデプロイ先のK8sクラスタを登録します。
+やってみたら以下が必要でした。
+
+- コントローラーは最低1台で、4vCPU/4GB で稼働することを確認ずみ
+- コンピュートは、8vCPU/16GB/200GB のマシンが最低1台必要
+
+なお、仮にTMCからデプロイしている場合は、手順の前に一度TMCからアンマネジードにしてください。
+
+左ペインの[Infrastructure] > [Kubernetes Clusters]から手順に従い追加していきます。
+最後に出てきたURLをつかってKubernetesをTPに登録します。
+
+![](ba4322b7.png)
+
+なお、筆者のインストーラーにしたがっている場合、この kubectl コマンドが証明書エラーで失敗します。
+仕方ないので以下の手順で代替しています。
+
+```
+wget <表示されたコマンドのhttp部分> --no-check-certificate
+kubectl create -f installer<このあたりをタブを押して自己補完>
+```
+
+しばらくHealthyになるまで待ちます。
+
+
+# Domain の設定
+
+作られたアプリケーションがつなぐDomainを設定します。
+[Setup & Configuration]の[Networking]の[Domain]タブの[Create Domain]を選択します。
+
+色々細かい設定もできるのですが、以下でとりあえずで動かします。
+
+- Doamin Name : アプリに使って欲しいドメイン
+- DNS Provider : Manage my own DNS solution
+- Certificate Provider : use HTTP/TCP (unecrypted traffic)
+
+![](c030d7e2.png)
+
+# プラットフォームビルドの設定
+
+デプロイの前にもう一手間プラットフォームビルドの準備をします。Projectを作成するごとに必要となります。
+本来の手順は以下でビルド専用の別k8sクラスタを作ります。
+
+https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform/10-0/tnz-platform/spaces-how-to-build-bind-deploy-configure-on-platform-builds.html
+
+とはいえ、リソースがもったいないので、今回はてっとり早くデプロイクラスタとビルドを兼任させます。
+[Spaces] > [Capabilites] を選択し、[ Tanzu Build Controller ]を選択して、[Install Package]を選択します。
+そして、ほぼデフォルトのまま、runクラスタへインストールします。
+
+![](4dfca634.png)
+
+
+ここからはCLIです。
+
+以下のコマンドで tanzu login を行います。login プラグインないと怒られた場合はtanzu cliのインストールを検索して行ってください。
+なお、tp.crt は事前準備にしたがっていれば、存在するはずの証明書です。
+
+```
+tanzu login --endpoint https://$TP_HOST --endpoint-ca-certificate  tp.crt
+```
+
+プロジェクトを使用状態にします。
+
+```
+tanzu project use tpadmin
+```
+
+TPの自己証明証明書を登録します。
+
+```
+kubectl create secret generic tp-crt --from-file=platform-cert.pem=$PWD/tp.crt --dry-run=client -o yaml > tp-crt.yaml
+tanzu deploy --only tp-crt.yaml
+```
+
+以下のコマンドでプラットフォームビルドをプロジェクトに設定します。`<TP Repo>` には、TPのインストールイメージを格納しているレポジトリを指定しています。
+別レポジトリも設定できますが、その場合は`imageRepositorySecretRefs` もアップデートして、レポジトリの認証情報を更新する必要があります。（マニュアルに手順がかいてあります。）
+
+```
+cat <<EOF > buildconfig.yaml
+apiVersion: build.tanzu.vmware.com/v1
+kind: BuildConfiguration
+metadata:
+  name: dev-project-bld-cfg
+  namespace: default
+spec:
+  availabilityTarget: all-regions.tanzu.vmware.com
+  caCertificateSecretRefs:
+  - name: tp-crt
+  imageRepositorySecretRefs:
+    - name: artifactory-secret-tap-saas
+  imageRepositoryTemplate: <TP Repo>/tpk8s/build
+EOF
+```
+```
+tanzu deploy --only buildconfig.yaml
+```
+
+準備はこれで終わりです。

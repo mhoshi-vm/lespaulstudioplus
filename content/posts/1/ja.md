@@ -1,0 +1,84 @@
+---
+title: "Tanzu Application Service(for k8s)の分散トレーシングをWavefrontにフォワードする"
+date: 2020-09-17T21:30:12+09:00
+categories: ["Tanzu Application Service"]
+tags: ["Tanzu Application Service", "Tanzu Observability", "wavefront"]
+thumbnail: "CFF_Logo_vertical_RGB.png"
+
+---
+
+Tanzu Application Service(for k8s)の分散トレーシングはWavefrontにフォワードできます。
+
+# はじめに
+
+Tanzu Application Service for k8s(以降TAS4K8S)とはVMwareが提供しているcf-for-k8sの商用ディストリビューションです。
+
+そして、cf-for-k8sにはいかにリストされているようサービスメッシュとしてIstioがあり、Istioがあるということは、分散トレーシングができるということです。
+
+https://github.com/cloudfoundry/cf-for-k8s/tree/develop#built-with
+
+今回はTASのトレーシング情報をTanzu Obserability（Wavefront) に連携する方法を紹介します。
+
+# 注意
+
+正式にサポートされている手順ではないため自己責任でお願いします。
+
+# 手順
+
+拍子抜けするぐらいシンプルな手順ですが、基本的には以下にあるとおりのインストール手順に従います。
+
+https://docs.pivotal.io/tas-kubernetes/0-3/installing-tas-for-kubernetes.html#install-tas-for-k8s-from-network
+
+TASのインストールを仕掛ける前に以下の`configuration-value/zipkin-url.yaml`　を作成します。
+なお、`externalName: wavefront-proxy.wavefront.svc.cluster.local`はwavefront-proxyが存在するURLに差し替えます。
+
+```yaml
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+  namespace: istio-system
+spec:
+  type: ExternalName
+  externalName: wavefront-proxy.wavefront.svc.cluster.local
+```
+
+つぎに、`configuration-value/istio-distributed-tracing.yaml`を作成します。
+
+```yaml
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.subset({"kind": "Deployment", "metadata": {"name": "istiod"}})
+---
+spec:
+  template:
+    spec:
+      containers:
+      #@overlay/match by="name"
+      - name: discovery
+        env:
+        #@overlay/match by="name"
+        - name: PILOT_TRACE_SAMPLING
+          value: "100"
+```
+
+以上です。あとはマニュアルにある通りにインストールします。
+
+```
+./bin/install-tas.sh ../configuration-values
+```
+
+
+# 結果
+
+うまく設定すれば、以下のように、Wavefrontでみえるようになります。
+
+![](2020-09-23T14-53-19.png)
+
+![](2020-10-01T05-10-11.png)
+
+# まとめ
+
+TAS4K8Sのトレーシングを外部への連携は簡単にできます。

@@ -1,0 +1,161 @@
+---
+title: "Tanzu Java BuildpackでSnykのテストを有効化する"
+date: 2021-03-02T21:30:12+09:00
+categories: ["Tanzu Build Service"]
+tags: ["Tanzu Build Service", "snyk"]
+thumbnail: "2021-03-03T14-22-06.png"
+---
+
+Tanzu Java Buildpackには様々な3rd Party連携が入っており、その中にSnykを使ったテストができる。<!--more-->
+
+## はじめに
+
+Tanzu Java BuildpackとはVMwareがサポートする商用Cloud Native Buildpacksです。
+
+このBuildpacksには、様々な3rd Party連携をできるBuildpackが同梱されています。
+まだ情報が少ないのですが、この一部はサポートされているようです。
+今回はこの中で、以下を有効にする方法を調べました。
+
+```
+tanzu-buildpacks/snyk
+```
+
+## 読み物
+
+情報が少ないのですが、以下の情報参考にしました。
+
+https://docs.pivotal.io/tanzu-buildpacks/release-notes/tanzu-snyk-release-notes.html  
+https://docs.pivotal.io/build-service/1-1/managing-images.html#service-bindings
+
+この中で、KpackのServiceBindingsという方法を使うことで、違うBuildpackを呼び出すことができるようです。
+
+## 環境
+
+Tanzu Build Service 1.1.1
+
+## 試す
+
+以下クィックに試します。
+
+### Imageリソースを生成
+
+以下のようなYamlファイルを作成します。なお`tag`に入る値は環境によって異なるので設定を変えてください。
+
+```yaml
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: spring-petclinic-snyk
+spec:
+  builder:
+    kind: ClusterBuilder
+    name: default
+  source:
+    git:
+      revision: main
+      url: https://github.com/spring-projects/spring-petclinic
+  tag: <REPO>/<LIBRARY>/<IMAGE>
+  bindings:
+  - name: snyk
+    metadataRef:
+      name: snyk
+    secretRef:
+      name: snyk-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: snyk-secret
+type: Opaque
+stringData:
+  org-name: YYYYY
+  api-token: XXXXXXXXXXXXXXXXXX
+  api-url: https://snyk.io/api
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: snyk
+data:
+  kind: snyk
+  provider: snyk
+```
+
+以下の値は、snykのアカウント情報にアップデートしてください。
+
+```
+stringData:
+  org-name: YYYYY
+  api-token: XXXXXXXXXXXXXXXXXX
+  api-url: https://snyk.io/api
+```
+
+
+なお、このYamlのポイントはBindingsを定義していることと、ConfigMap側で`kind: snyk`を定義していることです。こうすることで、ビルド時にsnykのbuildpackが追加で呼び出されるようになります。
+
+
+### 適用
+
+そして上のYamlファイルを適用します。
+
+```
+kubectl apply -f <Yaml名> -n <Namespace名>
+```
+
+以上です。あとは動作を確認します。
+
+## 動作確認
+
+しばらくすると、いかのようにエラーになったJobが出現します。
+
+```
+kubectl get po -n petclinic-build
+NAME                                            READY   STATUS       RESTARTS   AGE
+spring-petclinic-snyk-build-1-mcbn6-build-pod   0/1     Init:Error   0          21m
+```
+エラーなので、意味がないとおもわれるかもしれないですが、ここでログを確認します。
+まずDetectフェーズをみると、たしかにSnykのbuildpackが追加されています。
+
+```
+# kubectl logs spring-petclinic-snyk-build-1-mcbn6-build-pod -n petclinic-build -c detect
+8 of 33 buildpacks participating
+paketo-buildpacks/ca-certificates   2.0.0
+tanzu-buildpacks/snyk               3.0.0　<<<< ここ！！
+paketo-buildpacks/bellsoft-liberica 7.0.0
+paketo-buildpacks/maven             4.0.0
+paketo-buildpacks/executable-jar    4.0.0
+paketo-buildpacks/apache-tomcat     4.2.0
+paketo-buildpacks/dist-zip          3.0.0
+paketo-buildpacks/spring-boot       4.0.0
+```
+
+さらにBuildフェーズをみると、エラーになった原因がSnykのテスト結果によるものとわかりました。
+
+```
+# kubectl logs spring-petclinic-snyk-build-1-mcbn6-build-pod -n petclinic-build -c build
+
+Paketo CA Certificates Buildpack 2.0.0
+  https://github.com/paketo-buildpacks/ca-certificates
+  Launch Helper: Reusing cached layer
+
+Tanzu Snyk Buildpack 3.0.0
+  https://github.com/pivotal-cf/tanzu-snyk
+  Build Configuration:
+    $BP_SNYK_BREAK_BUILD         true  whether to fail build when issues are found
+    $BP_SNYK_SEVERITY_THRESHOLD  low   the lowest severity of issues to display and use to determine build breakage
+Testing...
+
+Tanzu Snyk Buildpack 3.0.0
+  unable to test
+  could not download https://snyk.io/api/v1/test/maven?org=machih: 403
+ERROR: failed to build: exit status 1
+```
+
+いったんは正しく期待したBuildpackが呼び出せているところまでは確認できました。
+
+なお、このエラーですが、調べたところ、Snykの無料アカウントだと、APIアクセスがないため発生しているようです。なのでSnykの有料アカウントを取得する必要があるようです。とりあえず、現段階ではあきらめます。
+
+## まとめ
+
+Tanzu Java Buildpackから3rd Party連携は簡単に呼び出すことができます。
+ただし、結果にあるとおり、実際にはテストになっていないので、もう少し詳細がわかったら方法を掲載します。今回はとりあえず、動いたレベルの紹介となります。

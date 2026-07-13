@@ -1,0 +1,112 @@
+---
+title: "Tanzu Observability + MetricsSecurityで実現するマルチテナント構成"
+date: 2021-01-15T21:30:12+09:00
+categories: ["Tanzu Observability"]
+tags: ["Tanzu Observability", "Wavefront", "Multi-tenant"]
+thumbnail: "Wavefront-Logo-Square-512x512.png"
+---
+
+Metrics Security PolicyでTanzu Observabilityでマルチテナントの構成ができます。<!--more-->
+
+![](2021-01-15T12-30-42.png)
+
+
+## はじめに
+
+Tanzu ObservabilityはSaaSプラットフォームなので、全てのメトリックスを一つのプラットフォームに集約されます。
+そしてユーザーが増えるに伴って、見せたい情報、見せたくない情報をどうやって制限するかという問題がありました。
+Tanzu Observabilityでは、従来は[Roleの機能](https://docs.wavefront.com/users_roles.html)であったり、[ダッシュボードのアクセス制限](https://docs.wavefront.com/access.html)などの機能は提供はされていました。ただ、一度そのダッシュボードにアクセスを与えてしまうと、見えてはいけない情報が紛れ込むのを防ぐのは至難の技でした。
+
+これに対し、新しい機能として[Metrics Security Policy](https://docs.wavefront.com/wavefront_security.html)という機能が紹介されました。これをすると同じダッシュボードでもユーザーによって、見えてくる情報が違うというものです。
+
+これはなかなかにすごいことです。これが登場するまえは、ユーザーごとにDashboardをコピーして微調整をする。。。なんてことが必要でしたが、これだと一つDashboardでメトリクスのポリシーを設定するだけで、マルチテナントができてしまうようになりました。
+ちなみにですが、この機能は特許申請済みの機能らしく、Tanzu Observability固有のものだそうです。
+
+今回はこれを検証します。
+
+## 前提
+
+この機能を使うには[Trial Account](https://tanzu.vmware.com/observability)以上が必要です。興味ある方は申し込んでください。
+
+## 検証
+
+さくっと検証します。
+
+### 何もPolicyをしていない例
+まず以下は、何もセキュリティポリシーを適用していない例。このテナントでは、今無造作にいろんな人が使っているため、100以上のKubernetesクラスターが出現しています。
+
+![](2021-01-15T12-16-27.png)
+
+### Policyで何も見えなくする
+
+これでまず何も見えなくしてみましょう、右のダイヤマークからMetricsSecurityPolicyを設定します。
+![](2021-01-15T12-24-44.png)
+
+そしてこんな風に設定します。
+![](2021-01-15T12-25-43.png)
+
+こうすることで以下のルールが適用されます。
+* machi@vmware.com さんは全てのメトリクスのアクセスを停止する
+* それ以外のユーザーは引き続き全てのメトリクスにアクセスできるようにする
+
+この状態でもう一度Kubernetesのダッシュボードを開きます。
+そうすると"All metrics in this chart are excluded due to metrics security policy rules."と表示され、何も見えなくなります。
+
+![](2021-01-15T12-27-50.png)
+
+いまのところ期待どおりです。
+
+### 自分のKubernetesクラスターだけみえるようにする
+
+次にこんな風に設定します。
+
+![](2021-01-15T12-30-42.png)
+
+注目が最初のルールで、`Source and Point Tags`に`tenant=machi`だった場合のみに、メトリクスを表示するという機能です。（このタグをメトリクスに追加する方法は後述)
+この状態でもう一度ダッシュボードを開きます。
+
+すると、100以上みえていたクラスターが私のクラスターだけみえるようになりました。
+
+![](2021-01-15T12-33-43.png)
+
+すごい。同じダッシュボードでこのようにみえるものを制御できることが確認できました。
+
+## タグはどうやって追加するの?
+
+さて、先の`tenant=machi`のタグはどうやって追加したかというと、[wavefront proxyのpreprocessorルール](https://docs.wavefront.com/proxies_preprocessor_rules.html#addtag-and-addtagifnotexists)というものを使っています。
+
+これをすることにより、Proxyを経由する全てのメトリクスにあるタグをTanzu Observabiityに送信する前に付与するということができます。
+
+今回の検証では[Wavefront CollectorのHelmチャート](https://github.com/wavefrontHQ/helm/tree/master/wavefront) を使って実現しています。
+
+以下のような`helm.yaml`ファイルを用意します。
+```
+clusterName: mhoshi-test
+
+wavefront:
+  url: https://xxx.wavefront.com
+  token: xxxxxxxxxxxxxxxxxx
+proxy:
+  preprocessor:
+    rules.yaml: |
+      '2878':
+       - rule    : tag-all-metrics
+         action  : addTag
+         tag     : tenant
+         value   : "machi"
+       - rule    : tag-all-metrics
+         action  : addTagIfNotExists
+         tag     : tenant
+         value   : "machi"
+```
+
+その後は以下のようなにしてhelmをKubernetes環境にデプロイすればOKです。
+
+```
+kubectl create namespace wavefront
+helm install -f helm.yaml wavefront wavefront/wavefront --namespace wavefront
+```
+
+## まとめ
+
+Tanzu Observabilityでのマルチテナント構成の実現がMetrics Security Policyですごく簡単になりました。

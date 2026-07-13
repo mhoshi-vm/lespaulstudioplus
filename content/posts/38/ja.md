@@ -1,0 +1,125 @@
+---
+title: "Tanzu Platform Self Managed を試す - 管理者向け：通信のHTTPS化"
+date: 2025-01-16T09:32:12+09:00
+categories: ["Tanzu Platform"]
+tags: ["Tanzu Platform"]
+thumbnail: "aeba8b9e.png"
+---
+
+最新製品である Tanzu Platform のオンプレ版を試していきます。
+
+ここでは、 アプリのHTTPS通信を有効にする方法を紹介します。
+<!--more-->
+
+# シリーズ
+
+- [Install編](../34)
+- [管理者向け:Projectセットアップ編](../35)
+- [利用者向け:Spaceへのデプロイ編](../36)
+- [管理者向け:デプロイ先の軽量化編](../37)
+- **ここ>** 管理者向け:通信のHTTPS化
+- [管理者向け:DNSへの自動登録](../39)
+
+おまけ：[「Tanzu Platform の知らなくてもいい話」シリーズ](/categories/tanzu-platform-for-maniacs/)
+
+# アプリケーションのHTTPS化
+
+アプリケーションのHTTP通信はTPの[Networking] > [Domains] の [Certificate Provider] の設定が影響します。
+前回までは、[use HTTP/TCP (unecrypted traffic)] を選択していたので全ての通信が暗号化されていませんでした。
+
+通信の暗号化には、証明書を作成した上で、Certificate Providerに登録していく必要があります。
+
+ここではその手順を紹介します。
+
+# 自己署名のCA証明書でHTTPS
+
+一旦自己署名の証明書をつくっていきます。まずは、いかの環境変数で、自分のドメインを指定します。
+
+```
+export APP_DOMAIN=<your app domain fqdn>
+```
+
+そして、以下のコマンドで証明書を作っていきます。
+
+```
+DIR=TMP
+mkdir -p $DIR
+
+openssl req -new -nodes -out ${DIR}/ca.csr -keyout ${DIR}/ca.key -subj "/CN=${APP_DOMAIN}/O=tanzu/C=JP"
+chmod og-rwx ${DIR}/ca.key
+
+cat <<EOF > ${DIR}/ext_ca.txt
+basicConstraints=CA:TRUE
+keyUsage=digitalSignature,dataEncipherment,keyEncipherment,keyAgreement
+extendedKeyUsage=serverAuth,clientAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = ${APP_DOMAIN}
+DNS.2 = *.${APP_DOMAIN}
+EOF
+
+openssl x509 -req -in ${DIR}/ca.csr -days 3650 -signkey ${DIR}/ca.key -out ${DIR}/ca.crt -extfile ${DIR}/ext_ca.txt
+```
+
+これをCertificate Provider に登録します。[Networking] > [Certificate Providers] から [Create Certificate Provider] を選択します。
+
+![](f934182b.png)
+
+上の手順で生成された、ca.crt の内容を Certificates に、ca.key を Key に登録します。
+
+![](b204f1b4.png)
+
+[Networking] > [Domains] に戻って、Certificate Providerを新しく作った Certificate Providerに登録します。
+
+![](0552149d.png)
+
+以上です。ここで、再度[前記事](../36) で紹介したようにアプリをデプロイしてきます。
+
+ドメインを登録後、以下のコマンドで curl すれば、HTTPSでの通信が可能です。
+注意点は二点で、`-k` は自己署名の証明書なので、追加しています。もう一点が、IstioのHTTPSはHostヘッダーではなく、SNIヘッダーで振り分けを行っているので `--resolve` で一時的にDNS登録をしないと、通信ができません。
+
+```
+curl -k --resolve <アプリドメイン>:443:<アプリIP> https://<アプリドメイン>
+```
+
+以下が結果です。
+
+![](a3f9747d.png)
+
+# Lets Encrypt証明書でHTTPS
+
+基本的にはやることは一緒ですが、Lets Encrypt証明書でもやってみます。
+
+以下のコマンドで Lets Encrypt 証明書を作ります。注意点が、エンドポイントのIPアドレスが一定ではないので、必然的にDNSチャレンジが必要になります。
+その場合は、<アプリドメイン>のDNSを所有している必要があります。
+
+```
+export APP_DOMAIN=<your app domain fqdn>
+```
+
+ののち、
+
+```
+sudo certbot certonly --manual --preferred-challenges dns -d "*.${APP_DOMAIN}"
+```
+
+途中で出る、TXTレコードをDNSに登録して、fullchain.pem と privkey.pem を入手します。
+
+流れはその後は一緒であり、
+
+- fullchain.pem を Certificate Provider の Certificate に登録
+- privekey.pem を Certificate Provider の Key に登録
+
+全てが完了したら、以下の curl で繋げることができます。
+lets encrypt なので"-k"が不要になります。
+
+```
+curl --resolve <アプリドメイン>:443:<アプリIP> https://<アプリドメイン>
+```
+
+以下が結果です。
+
+![](b4708ab7.png)
+
+
+以上HTTPS化が完了しました。
