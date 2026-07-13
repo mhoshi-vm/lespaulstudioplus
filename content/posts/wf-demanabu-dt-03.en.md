@@ -56,7 +56,7 @@ https://github.com/mhoshi-vm/wf-demanabu-dis-tracing/tree/master/3
 Once ready, access this URL:
 
 [start.spring.io](https://start.spring.io)
-![](../images/wf_demanabu_dt_03/2020-09-16T02-05-55.png)
+![](images/wf_demanabu_dt_03/2020-09-16T02-05-55.png)
 
 Then do the following:
 
@@ -215,7 +215,7 @@ The slowest reported value is 2 seconds, but here's the code behind it:
 
 Note that this code actually waits **5 seconds with 2% probability** and **2 seconds with 10% probability**.
 Indeed, scrolling down a bit shows the 5-second waits are actually being detected:
-![](../images/wf_demanabu_dt_03/2020-09-16T02-07-04.png)
+![](images/wf_demanabu_dt_03/2020-09-16T02-07-04.png)
 Yet, as the result shows, the 5-second waits are ignored. That's what "95th percentile" means: latencies occurring beyond the 95% mark are treated as outliers and ignored.
 
 There are various schools of thought on this value, but what I want you to take away at this stage is that Wavefront can display this kind of analysis. (And for free.)

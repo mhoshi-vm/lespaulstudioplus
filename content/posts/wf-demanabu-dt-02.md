@@ -284,7 +284,7 @@ Trace、Spanという単語が突然でてきましたが、[概要編](../wf-de
 この場合、`5f0e5b575bea47a61ec9c6adc683de47`がSleuthが追加したTrace IDであり、`1ec9c6adc683de47`がSpan IDです。
 
 Wavefrontでも、このTrace IDとSpan IDがログから見えます。
-![](../images/wf_demanabu_dt_02/2020-09-15T13-39-01.png)
+![](images/wf_demanabu_dt_02/2020-09-15T13-39-01.png)
 
 さて、Wavefront側ですが、必要な設定は以下だけでした。
 

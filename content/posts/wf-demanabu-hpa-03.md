@@ -31,7 +31,7 @@ https://github.com/wavefrontHQ/wavefront-kubernetes-adapter/blob/master/docs/int
 
 今回は以下の図示されているような構成で検証します。
 
-![](../images/wf_demanabu_hpa_03/2020-09-16T14-43-22.png)
+![](images/wf_demanabu_hpa_03/2020-09-16T14-43-22.png)
 
 つまり、Kubernetesとは別に稼働しているWebアプリ(`/counter`)に対して、リクエストを送信してスケールアップをするような構成です。特にリクエストがやってこない場合、徐々にスケールダウンしていきます。
 

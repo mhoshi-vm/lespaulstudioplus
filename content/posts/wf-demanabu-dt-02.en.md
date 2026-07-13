@@ -284,7 +284,7 @@ Looking at the app logs, you probably see lines like:
 Here, `5f0e5b575bea47a61ec9c6adc683de47` is the Trace ID added by Sleuth, and `1ec9c6adc683de47` is the Span ID.
 
 In Wavefront too, this Trace ID and Span ID are visible from the logs.
-![](../images/wf_demanabu_dt_02/2020-09-15T13-39-01.png)
+![](images/wf_demanabu_dt_02/2020-09-15T13-39-01.png)
 
 As for the Wavefront side, the only settings needed were:
 

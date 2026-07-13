@@ -56,7 +56,7 @@ https://github.com/mhoshi-vm/wf-demanabu-dis-tracing/tree/master/3
 準備ができたら、以下のURLにアクセスしてください。
 
 [start.spring.io](https://start.spring.io)
-![](../images/wf_demanabu_dt_03/2020-09-16T02-05-55.png)
+![](images/wf_demanabu_dt_03/2020-09-16T02-05-55.png)
 
 ログイン後、以下を実施します。
 
@@ -215,7 +215,7 @@ https://localhost:8082/actuator/wavefront
 
 注目がこのコードは本来**2%の確率で5秒まつ**が**10%の確率で2秒まつ**としている点です。
 実際すこしスクロールダウンすると、実際には5秒待ちを検知しているのがわかります。
-![](../images/wf_demanabu_dt_03/2020-09-16T02-07-04.png)
+![](images/wf_demanabu_dt_03/2020-09-16T02-07-04.png)
 しかし、結果からわかるとおり、5秒まつの結果が無視されます。これが「パーセンタイル 95％」の意味です。要は、高い値の95% 以上の確率で発生する遅延はエラー値として、無視するという考えです。
 
 この値に関して、色々考え方があるとは思いますが、とりあえず現段階で知って欲しいことはWavefrontがこういった分析結果を表示できる点です。（しかもタダで）

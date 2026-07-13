@@ -30,7 +30,7 @@ The point: you can effectively use any Wavefront metric for HPA, freely. This ti
 
 We verify with the configuration illustrated below:
 
-![](../images/wf_demanabu_hpa_03/2020-09-16T14-43-22.png)
+![](images/wf_demanabu_hpa_03/2020-09-16T14-43-22.png)
 
 That is, a setup where requests sent to a web app (`/counter`) running separately from Kubernetes cause a scale-up. When no requests come, it gradually scales back down.
 
