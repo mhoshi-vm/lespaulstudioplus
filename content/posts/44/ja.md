@@ -6,6 +6,7 @@ thumbnail: "img.png"
 ---
 今回は、Oracle GoldenGate を利用して Oracle Database の変更データ（CDC: Change Data Capture）を RabbitMQ へ連携（レプリケーション）する方法を試していきます。
 個人的にはあまり使ったことがない、RabbitMQのJMSクライアントを経由しています。
+<!--more--> 
 
 対象のレポジトリはこちらです。
 [mhoshi-vm/oracle-gg-to-rabbitmq](https://github.com/mhoshi-vm/oracle-gg-to-rabbitmq)

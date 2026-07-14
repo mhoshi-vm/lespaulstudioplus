@@ -7,6 +7,7 @@ draft: true
 ---
 This time, I'll try out how to replicate change data (CDC: Change Data Capture) from an Oracle Database to RabbitMQ using Oracle GoldenGate.
 Personally, I went through RabbitMQ's JMS client, which I hadn't really used before.
+<!--more--> 
 
 Here is the repository in question.
 [mhoshi-vm/oracle-gg-to-rabbitmq](https://github.com/mhoshi-vm/oracle-gg-to-rabbitmq)
