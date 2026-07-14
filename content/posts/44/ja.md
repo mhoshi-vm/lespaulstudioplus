@@ -3,6 +3,7 @@ title: "Oracle GoldenGate を RabbitMQ の JMS クライアントを使いデー
 date: "2026-07-13T00:00:00+09:00"
 tags: ["Announcement"]
 thumbnail: "img.png"
+draft: true
 ---
 
 ![img.png](img.png)
