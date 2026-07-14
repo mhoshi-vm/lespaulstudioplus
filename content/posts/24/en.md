@@ -1,7 +1,6 @@
 ---
 title: "Enabling Snyk Testing in the Tanzu Java Buildpack"
 date: 2021-03-02T21:30:12+09:00
-categories: ["Tanzu Build Service"]
 tags: ["Tanzu Build Service", "snyk"]
 thumbnail: "2021-03-03T14-22-06.png"
 ---

@@ -2,7 +2,6 @@
 title: "Wavefrontで学ぶ分散トレーシング Part-1"
 description: "この文章は、Wavefrontで学ぶ分散トレーシング　シリーズの第一回目です。"
 date: 2020-08-14T21:30:12+09:00
-categories: [Tanzu Observability]
 tags: ["Wavefront","Tanzu Observability", "Distributed Tracing", "featured"]
 thumbnail: "Wavefront-Logo-Square-512x512.png"
 featured: true

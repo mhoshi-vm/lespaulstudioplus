@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Application Service(beta)にPacketo Python Buildpackを追加する"
 date: 2020-10-14T21:30:12+09:00
-categories: ["Tanzu Application Service"]
 tags: ["Tanzu Application Service"]
 thumbnail: "2020-10-15T02-49-32.png"
 ---

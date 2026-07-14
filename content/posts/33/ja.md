@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Application Platform から Amazon ECS へデプロイをする"
 date: 2023-12-22T21:30:12+09:00
-categories: ["Crossplane","AWS"]
 tags: ["Crossplane", "AWS"]
 thumbnail: "img_6.png"
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Wavefrontで学ぶ分散トレーシング Part-7"
 date: 2020-08-20T21:30:12+09:00
-categories: [Tanzu Observability]
 tags: [Wavefront,Tanzu Observability, Distributed Tracing]
 thumbnail: "Wavefront-Logo-Square-512x512.png"
 ---

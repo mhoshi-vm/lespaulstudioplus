@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Platform Self Managed を試す - 管理者向け：デプロイ先の軽量化編"
 date: 2025-01-08T09:33:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 ---

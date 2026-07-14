@@ -41,7 +41,6 @@ Frontmatter (YAML) plus markdown body:
 ---
 title: "記事のタイトル"
 date: 2025-01-10T12:00:00+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform", "Kubernetes"]
 thumbnail: "cover.png"      # optional; a file in this post folder
 draft: true                 # optional; drafts are not published

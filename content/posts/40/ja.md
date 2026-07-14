@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Platform Self Managed を試す - 利用者向け：アプリケーションへのシークレット受け渡し"
 date: 2025-01-17T12:31:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 draft: true

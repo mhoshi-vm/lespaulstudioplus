@@ -1,7 +1,6 @@
 ---
 title: "How to Look Up an Image Digest without the Docker CLI or Downloading the Image"
 date: 2023-01-05T21:30:12+09:00
-categories: ["carvel","kbld"]
 tags: ["carvel", "kbld"]
 thumbnail: "img.png"
 ---

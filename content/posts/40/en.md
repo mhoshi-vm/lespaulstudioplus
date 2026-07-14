@@ -1,7 +1,6 @@
 ---
 title: "Trying Tanzu Platform Self Managed — For Users: Passing Secrets to Applications"
 date: 2025-01-17T12:31:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 draft: true

@@ -1,7 +1,6 @@
 ---
 title: "Trying Tanzu Platform Self Managed — For Admins: Automatic DNS Registration"
 date: 2025-01-17T12:32:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 ---

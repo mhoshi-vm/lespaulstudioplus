@@ -1,7 +1,6 @@
 ---
 title: "Learning Horizontal Pod Autoscaler with Wavefront Part-2"
 date: 2020-08-22T21:30:12+09:00
-categories: [Tanzu Observability]
 tags: ["Wavefront","Tanzu Observability", "Horizontal Pod Autoscaler"]
 thumbnail: "hpa.png"
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Trying Tanzu Platform Self Managed — For Admins: Enabling HTTPS"
 date: 2025-01-16T09:32:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 ---

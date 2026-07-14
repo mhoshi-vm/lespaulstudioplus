@@ -1,7 +1,6 @@
 ---
 title: "Pinnipedを試す"
 date: 2021-02-10T21:30:12+09:00
-categories: ["Pinniped"]
 tags: ["Tanzu Mission Control", "Pinniped"]
 thumbnail: "2021-02-10T14-02-20.png"
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Trying Tanzu Platform Self Managed — For Admins: Slimming Down the Deploy Target"
 date: 2025-01-08T09:33:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Deploying from Tanzu Application Platform to Amazon ECS"
 date: 2023-12-22T21:30:12+09:00
-categories: ["Crossplane","AWS"]
 tags: ["Crossplane", "AWS"]
 thumbnail: "img_6.png"
 ---

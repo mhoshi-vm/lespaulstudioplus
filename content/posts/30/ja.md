@@ -1,7 +1,6 @@
 ---
 title: "イメージダイジェストをDocker CLIもなく、イメージもダウンロードせずに調べる方法"
 date: 2023-01-05T21:30:12+09:00
-categories: ["carvel","kbld"]
 tags: ["carvel", "kbld"]
 thumbnail: "img.png"
 ---

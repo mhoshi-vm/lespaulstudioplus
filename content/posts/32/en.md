@@ -1,7 +1,6 @@
 ---
 title: "How to Contribute to Crossplane / Upbound"
 date: 2023-12-10T21:30:12+09:00
-categories: ["Crossplane","AWS"]
 tags: ["Crossplane", "AWS"]
 thumbnail: "img_2.png"
 ---

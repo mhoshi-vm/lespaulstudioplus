@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Observability + MetricsSecurityで実現するマルチテナント構成"
 date: 2021-01-15T21:30:12+09:00
-categories: ["Tanzu Observability"]
 tags: ["Tanzu Observability", "Wavefront", "Multi-tenant"]
 thumbnail: "Wavefront-Logo-Square-512x512.png"
 ---

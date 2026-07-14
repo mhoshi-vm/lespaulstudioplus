@@ -1,7 +1,6 @@
 ---
 title: "I Built a Kubernetes Controller That Notifies Github When a Kpack Image Build Completes"
 date: 2022-12-19T21:30:12+09:00
-categories: ["kpack","Spring", "github"]
 tags: ["kpack", "github", "kubernetes controller"]
 thumbnail: "2022-12-20T06-13-29.png"
 ---

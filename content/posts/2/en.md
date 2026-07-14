@@ -1,7 +1,6 @@
 ---
 title: "I Spoke at Cloud Native Days Tokyo"
 date: 2020-09-09T21:30:12+09:00
-categories: ["Presentation"]
 tags: ["Presentation", "Cloud Native Days"]
 ---
 

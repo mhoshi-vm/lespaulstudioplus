@@ -1,7 +1,6 @@
 ---
 title: "Extracting the Input That OPA Reviews"
 date: 2020-10-01T21:30:12+09:00
-categories: ["Tanzu Mission Control"]
 tags: ["Open Policy Agent"]
 ---
 

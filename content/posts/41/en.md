@@ -1,8 +1,7 @@
 ---
 title: "Things You Don't Need to Know about Tanzu Platform — Kine/KCP"
 date: 2025-01-21T12:31:12+09:00
-categories: ["Tanzu Platform", "Tanzu Platform for Maniacs"]
-tags: ["Tanzu Platform"]
+tags: ["Tanzu Platform", "Tanzu Platform for Maniacs"]
 thumbnail: "aa95fd11.png"
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: "OPAのReviewするInputの中身を取り出す"
 date: 2020-10-01T21:30:12+09:00
-categories: ["Tanzu Mission Control"]
 tags: ["Open Policy Agent"]
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: "TMCのポリシー違反の情報をTanzu Observabilityからモニターする"
 date: 2020-12-02T22:30:12+09:00
-categories: [Tanzu Observability]
 tags: ["Tanzu Mission Control", "Tanzu Observability", "Open Policy Agent"]
 thumbnail: "2020-09-24T13-09-22.png"
 ---

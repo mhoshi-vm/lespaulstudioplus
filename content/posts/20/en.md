@@ -1,7 +1,6 @@
 ---
 title: "Installing Gemfire on TKG"
 date: 2021-01-29T21:30:12+09:00
-categories: ["Gemfire"]
 tags: ["Gemfire"]
 thumbnail: "2021-01-29T00-20-47.png"
 ---

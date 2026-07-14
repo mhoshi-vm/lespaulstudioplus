@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Service Meshの分散トレーシングをWavefrontにフォワードする"
 date: 2020-09-17T21:30:12+09:00
-categories: ["Tanzu Service Mesh"]
 tags: ["Tanzu Service Mesh", "Tanzu Observability", "wavefront"]
 thumbnail: "tsm-wordpress.png"
 

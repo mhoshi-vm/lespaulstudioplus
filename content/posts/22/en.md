@@ -1,7 +1,6 @@
 ---
 title: "Distributed Tracing with Wavefront + OpenTelemetry Auto Instrumentation"
 date: 2021-02-14T21:30:12+09:00
-categories: ["Tanzu Observability"]
 tags: ["Tanzu Observability", "Wavefront", "OpenTelemetry", "Distributed Tracing"]
 thumbnail: "2021-02-15T14-51-10.png"
 ---

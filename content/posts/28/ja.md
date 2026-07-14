@@ -1,7 +1,6 @@
 ---
 title: "Spring Cloud Bindings の Bindings をコンテナ化にせずアクセスする"
 date: 2022-09-13T21:30:12+09:00
-categories: ["Spring"]
 tags: ["Spring", "Spring Cloud Bindings"]
 thumbnail: "2022-08-15T00-46-16.png"
 ---

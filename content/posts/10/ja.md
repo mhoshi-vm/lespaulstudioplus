@@ -1,7 +1,6 @@
 ---
 title: "Tanzu ObservabilityでDBの通信を可視化する"
 date: 2020-11-11T21:30:12+09:00
-categories: ["Tanzu Observability"]
 tags: ["Tanzu Observability", "Distributed Tracing", "Wavefront"]
 thumbnail: "Wavefront-Logo-Square-512x512.png"
 ---

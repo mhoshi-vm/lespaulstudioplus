@@ -1,7 +1,6 @@
 ---
 title: "Tanzu BuildpackでSonarQubeのテストと統合する"
 date: 2021-03-03T21:30:12+09:00
-categories: ["Tanzu Build Service"]
 tags: ["Tanzu Build Service", "SonarQube"]
 thumbnail: "2021-03-04T05-31-10.png"
 ---

@@ -1,7 +1,6 @@
 ---
 title: "ブログ刷新、地味に更新してきます。"
 date: 2026-07-14T00:00:00+09:00
-categories: ["announcement"]
 tags: ["Announcement"]
 thumbnail: "img_1.png"
 ---

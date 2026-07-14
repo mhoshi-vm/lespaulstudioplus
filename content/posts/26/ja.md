@@ -1,7 +1,6 @@
 ---
 title: "ConcourseとGithubとの相性まとめ"
 date: 2021-03-03T21:30:12+09:00
-categories: ["Concourse"]
 tags: ["Concourse", "Github"]
 thumbnail: "2021-04-06T08-15-02.png"
 ---

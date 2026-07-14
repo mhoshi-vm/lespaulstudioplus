@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Platform Self Managed を試す - 管理者向け：Projectセットアップ編"
 date: 2025-01-06T21:36:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 ---

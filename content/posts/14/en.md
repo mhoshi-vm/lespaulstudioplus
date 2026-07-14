@@ -1,7 +1,6 @@
 ---
 title: "Visualizing Tanzu Observability DB Traffic with Spring AOP"
 date: 2020-12-02T21:30:12+09:00
-categories: ["Tanzu Observability"]
 tags: ["Tanzu Observability", "Distributed Tracing", "Wavefront", "Spring AOP"]
 thumbnail: "Wavefront-Logo-Square-512x512.png"
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Installing Tanzu Service Manager the Quick Way"
 date: 2020-10-28T21:30:12+09:00
-categories: ["Tanzu Application Service"]
 tags: ["Tanzu Application Service"]
 thumbnail: "2020-10-29T00-07-21.png"
 

@@ -1,7 +1,6 @@
 ---
 title: "Tanzu Application Service(for k8s)の分散トレーシングをWavefrontにフォワードする"
 date: 2020-09-17T21:30:12+09:00
-categories: ["Tanzu Application Service"]
 tags: ["Tanzu Application Service", "Tanzu Observability", "wavefront"]
 thumbnail: "CFF_Logo_vertical_RGB.png"
 

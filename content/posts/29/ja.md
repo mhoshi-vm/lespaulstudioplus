@@ -1,7 +1,6 @@
 ---
 title: "Kpackのイメージ作成完了をGithubに通知するKubernetes Controllerを実装してみた"
 date: 2022-12-19T21:30:12+09:00
-categories: ["kpack","Spring", "github"]
 tags: ["kpack", "github", "kubernetes controller"]
 thumbnail: "2022-12-20T06-13-29.png"
 ---

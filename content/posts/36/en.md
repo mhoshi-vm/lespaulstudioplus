@@ -1,7 +1,6 @@
 ---
 title: "Trying Tanzu Platform Self Managed — For Users: Deploying to a Space"
 date: 2025-01-07T09:35:12+09:00
-categories: ["Tanzu Platform"]
 tags: ["Tanzu Platform"]
 thumbnail: "aeba8b9e.png"
 ---

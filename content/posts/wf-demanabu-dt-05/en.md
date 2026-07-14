@@ -1,7 +1,6 @@
 ---
 title: "Learning Distributed Tracing with Wavefront Part-5"
 date: 2020-08-18T21:30:12+09:00
-categories: [Tanzu Observability]
 tags: [Wavefront,Tanzu Observability, Distributed Tracing]
 thumbnail: "Wavefront-Logo-Square-512x512.png"
 ---

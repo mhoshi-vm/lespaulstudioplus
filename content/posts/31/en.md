@@ -1,7 +1,6 @@
 ---
 title: "Building a Spring Application That Supports OpenAI Streaming Output"
 date: 2023-12-04T16:30:12+09:00
-categories: ["Spring","OpenAI"]
 tags: ["Spring", "OpenAI"]
 thumbnail: "img.png"
 ---
