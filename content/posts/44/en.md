@@ -3,7 +3,6 @@ title: "Streaming Oracle GoldenGate Data to RabbitMQ via Its JMS Client"
 date: "2026-07-16T00:00:00+09:00"
 tags: ["Oracle", "Golden Gate", "RabbitMQ", "JMS"]
 thumbnail: "img.png"
-draft: true
 ---
 This time, I'll try out how to replicate change data (CDC: Change Data Capture) from an Oracle Database to RabbitMQ using Oracle GoldenGate.
 Personally, I went through RabbitMQ's JMS client, which I hadn't really used before.
