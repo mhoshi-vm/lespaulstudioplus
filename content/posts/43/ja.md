@@ -1,5 +1,5 @@
 ---
-title: "ブログ刷新、地味に更新してきます。"
+title: "ブログ刷新、地味に更新していきます。"
 date: 2026-07-14T00:00:00+09:00
 tags: ["Announcement"]
 thumbnail: "img_1.png"
