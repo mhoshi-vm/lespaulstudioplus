@@ -1,6 +1,6 @@
 ---
 title: "Greenplum の Dockerfile を作り、Testcontainersから起動"
-date: "2026-07-16T00:00:00+09:00"
+date: "2026-07-16T01:00:00+09:00"
 tags: ["Greenplum", "Testcontainers", "Spring"]
 thumbnail: "img.png"
 ---
