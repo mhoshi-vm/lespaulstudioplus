@@ -1,6 +1,6 @@
 ---
 title: "Spring gRPC を Spring Authorization Server で認証機能をつける（client_credentials編）"
-date: "2026-07-16T13:00:00+09:00"
+date: "2026-07-16T12:00:00+09:00"
 tags: ["Spring", "gRPC", "OIDC", "OAUTH2"]
 thumbnail: "img_2.png"
 ---

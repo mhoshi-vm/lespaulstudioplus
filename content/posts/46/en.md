@@ -1,6 +1,6 @@
 ---
 title: "Adding Authentication to Spring gRPC with Spring Authorization Server (client_credentials Edition)"
-date: "2026-07-16T13:00:00+09:00"
+date: "2026-07-16T12:00:00+09:00"
 tags: ["Spring", "gRPC", "OIDC", "OAUTH2"]
 thumbnail: "img_2.png"
 ---
