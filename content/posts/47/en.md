@@ -1,38 +1,38 @@
 ---
-title: "Spring gRPC を Spring Authorization Server で認証機能をつける（private_key_jwt編）"
+title: "Adding Authentication to Spring gRPC with Spring Authorization Server (private_key_jwt Edition)"
 date: "2026-07-16T13:00:00+09:00"
 tags: ["Spring", "gRPC", "OIDC", "OAUTH2"]
 thumbnail: "img_2.png"
 ---
 
-[前回](../46)で [Spring gRPC](https://spring.io/projects/spring-grpc) と [Spring Authorization Server](https://spring.io/projects/spring-authorization-server) を client_credentials で連携する方法を紹介しました。
-ただし、この方法だと client_secret が実質パスワード扱いでした。そこで今回は、`private_key_jwt` を使い完全にパスワードレスな認証をやる方法を紹介します。
+In the [previous post](../46) I introduced how to integrate [Spring gRPC](https://spring.io/projects/spring-grpc) with [Spring Authorization Server](https://spring.io/projects/spring-authorization-server) using client_credentials.
+However, with that method the client_secret was effectively treated as a password. So this time, I'll introduce how to achieve fully passwordless authentication using `private_key_jwt`.
 <!--more--> 
 
-## はじめに
+## Introduction
 
-[前回](../46)と一緒ですが、gRPCの通信を安全にするための認証、それを完全にパスワードレスにやる方法を紹介します。
-なお、ここで紹介する方法は、あくまで1パターンであり、仕組みさえわかれば、組み方は複数通り可能です。
-（しかも試行錯誤の結果なのでコードが汚いです。）
+Same as the [previous post](../46): this is about authentication to secure gRPC communication, but done in a completely passwordless way.
+Note that the method introduced here is just one pattern; once you understand the mechanism, there are multiple ways to put it together.
+(Also, since this is the result of trial and error, the code is messy.)
 
-## コード
+## Code
 
-コードはここです。
+The code is here.
 
 [https://github.com/mhoshi-vm/play-w-gprc-mtls](https://github.com/mhoshi-vm/play-w-gprc-mtls)
 
-## private_key_jwt 方式で
+## With the private_key_jwt Method
 
-今回は、private_key_jwt 方式でやります。
+This time, we use the private_key_jwt method.
 
-- 前回と同じく、用意するアプリは、GrpcServer, GrpcClient, OauthServer
-- private_key_jwt は、RSA秘密鍵で署名されたJWTを発行しつつ、その公開鍵をJWKS Endpointでホスティングする必要があります。
-これ自体はどこでもいいのですが今回はOauthServerに同居させる
-- OauthServerには、RSA鍵で署名されたJWTを返す /token をホスティングし、その公開鍵は /oauth2/jwks でホスティング
-- GrpcClient は/tokenからJWTを入手して、OauthServerにアクセストークンを依頼する
-- OauthServer は、/oauth2/jwksにアクセスし、公開鍵からJWTが正しいと確認し、アクセストークンを発行
-- GrpcClientはそのアクセストークンを使って、GrpcServerへアクセス
-- GrpcServer はそのアクセストークンが正しいものか OauthServer に確認後、GrpcClientに返答
+- Same as last time, the apps we prepare are GrpcServer, GrpcClient, and OauthServer
+- private_key_jwt requires issuing a JWT signed with an RSA private key while hosting the corresponding public key on a JWKS Endpoint.
+This can live anywhere, but this time we co-locate it with the OauthServer
+- The OauthServer hosts /token, which returns a JWT signed with the RSA key, and the corresponding public key is hosted at /oauth2/jwks
+- GrpcClient obtains the JWT from /token and requests an access token from the OauthServer
+- The OauthServer accesses /oauth2/jwks, verifies the JWT is valid using the public key, and issues an access token
+- GrpcClient uses that access token to access GrpcServer
+- GrpcServer checks with the OauthServer that the access token is valid, then responds to GrpcClient
 
 ```text
 GrpcClient                      OauthServer                     GrpcServer
@@ -58,26 +58,26 @@ GrpcClient                      OauthServer                     GrpcServer
     |<--(9) gRPC response-------------------------------------------|
 ```
 
-### OauthServer の起動
+### Starting the OauthServer
 
-まず、OauthServerが使うRSA鍵ペアを作ります。
+First, create the RSA key pair used by the OauthServer.
 
 ````
 bash gen_rsa.sh
 ````
 
-これを使いOauthServerを起動します。
+Then start the OauthServer using it.
 
 ```
 cd oauth-server
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=private_key_jwt
 ```
 
-このProfileによる`TokenConfig.java` と `TokenController.java` が読み込まれます。
-抜粋して解説します。
+This profile loads `TokenConfig.java` and `TokenController.java`.
+Let me explain some excerpts.
 
-`JWKSource` Bean をつくることで、OauthServerの"/oauth2/jwks"が有効になります。
-前手順のRSA鍵をベースに登録していきます。
+Creating a `JWKSource` Bean enables the OauthServer's "/oauth2/jwks".
+We register it based on the RSA keys from the previous step.
 ```java
     @Bean
     public JWKSource<SecurityContext> jwkSource(JwtProperties jwtProperties) {
@@ -97,7 +97,7 @@ cd oauth-server
     }
 ```
 
-あとでControllerで使うjwtEncoderもBeanにします。ここでは、`JwkSource` で使ったRSAの秘密鍵を使います。
+We also make the jwtEncoder, used later in the controller, a Bean. Here we use the RSA private key that was used for the `JwkSource`.
 ```java
     @Bean
     JwtEncoder jwtEncoder(JwtProperties jwtProperties) {
@@ -106,8 +106,8 @@ cd oauth-server
         return new NimbusJwtEncoder(jwks);
     }
 ```
-Oauthクライアントを登録します。client_credentialsとは違い、propertiesだけではできないので、コードで書きます。
-また、ポイントとして、`clientSecret`を登録していない点です。
+We register the OAuth client. Unlike client_credentials, this can't be done with properties alone, so we write it in code.
+Also, the key point is that no `clientSecret` is registered.
 ```java
     @Bean
     RegisteredClientRepository registeredClientRepository() {
@@ -127,7 +127,7 @@ Oauthクライアントを登録します。client_credentialsとは違い、pro
         return new InMemoryRegisteredClientRepository(grpcClient);
     }
 ```
-`/token` はこんな感じで実装します。一旦は（もちろん非推奨ですが）特に認証もなく、ハードコードされたJWTを返すようにします。
+`/token` is implemented like this. For now (although of course not recommended), it returns a hard-coded JWT without any authentication.
 
 ```java
     @GetMapping("/token")
@@ -146,9 +146,9 @@ Oauthクライアントを登録します。client_credentialsとは違い、pro
     }
 ```
 
-### GrpcServer の起動
+### Starting the GrpcServer
 
-gRPCサーバーを起動します。(compileは1度は必須)
+Start the gRPC server. (Compiling at least once is required.)
 
 ```
 cd server
@@ -156,15 +156,15 @@ cd server
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=oauth
 ```
 
-これは前回と何も変わらないです。
+Nothing has changed from last time.
 
 ```
 spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9000
 ```
 
-### GrpcClient の起動
+### Starting the GrpcClient
 
-gRPCクライアントを起動します。(compileは1度は必須)
+Start the gRPC client. (Compiling at least once is required.)
 
 ```
 cd client
@@ -172,11 +172,11 @@ cd client
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=oauth_private_key_jwt
 ```
 
-このProfileによって、`PrivJwtKeyClientConfiguration.java` が読み込まれます。
-変わっているのが以下の箇所であり
-- /tokenからJWTを入手
-- アクセストークンをOauth経由で取得
-- アクセストークンが有効期限切れになるまで再利用
+This profile loads `PrivJwtKeyClientConfiguration.java`.
+What has changed is the following part:
+- Obtain the JWT from /token
+- Obtain the access token via OAuth
+- Reuse the access token until it expires
 
 ```java
     @Bean
@@ -230,28 +230,28 @@ cd client
         return token.getExpiresAt().isAfter(Instant.now().plusSeconds(10));
     }
 ```
-### gRPC実行
+### Running gRPC
 
-その後、以下のコマンドを打ちます。
+After that, run the following command.
 
 ```
 curl localhost:8081
 ```
 
-client側のプロンプトで以下が出力されれば、gRPC成功
+If the following is printed in the client's prompt, the gRPC call succeeded.
 
 ```
 message: "Hello ==> hello"
 ```
 
-たとえば意図的に不正なJWTトークンを返すようにしてみると(issuerを適当にかえてみる)
+For example, if you intentionally make it return an invalid JWT token (change the issuer to something random):
 
 ```java
     @GetMapping("/token")
     public String token() {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("aaaaa")   <<<<<<<<<<< ここ
+                .issuer("aaaaa")   <<<<<<<<<<< here
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(30))
                 .subject("grpc")
@@ -264,7 +264,7 @@ message: "Hello ==> hello"
 ```
 
 
-OauthServerのログをみると以下のようなものがみれるかと思います。つまり正しく認証ができています。
+If you look at the OauthServer's logs, you should see something like the following. In other words, authentication is working correctly.
 
 ```
 2026-07-16T15:10:35.120+09:00 DEBUG 27914 --- [oauth-server] [nio-9000-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
@@ -276,13 +276,13 @@ OauthServerのログをみると以下のようなものがみれるかと思い
 2026-07-16T15:10:35.223+09:00 DEBUG 27914 --- [oauth-server] [io-9000-exec-10] .s.a.DefaultAuthenticationEventPublisher : No event was found for the exception org.springframework.security.oauth2.core.OAuth2AuthenticationException
 ```
 
-この通りパスワードなしで、oauthを使いgrpcを認証できました。
-なお、このやり方だと /token にアクセスできる全てのデバイスがJWTを取れてしまい認証できてしまいます。
-え、セキュアじゃないじゃん、とは思うかもしれませんが、/tokenをセキュアに保つ手段は複数とれます。
-アクセスしてきたデバイスが自分自身を証明する情報をもとにtoken発行を制御すればいいとなります。
-一般的にはTLS証明書（mTLSっぽくなってしまいますが）、他にも接続元IPやFQDN（改ざんできない前提ですが）といった手段がとれるかと思います。
-いずれにせよ、パスワードでの認証方法に依存せずに構築することができます。
+As shown, we were able to authenticate gRPC using OAuth without any passwords.
+However, with this approach, every device that can access /token can obtain a JWT and get authenticated.
+You might think "wait, that's not secure at all", but there are multiple ways to keep /token secure.
+The idea is to control token issuance based on information that proves the identity of the device making the request.
+Typically that would be a TLS certificate (which makes it look somewhat like mTLS), and other options include the source IP or FQDN (assuming they can't be tampered with).
+Either way, you can build this without depending on password-based authentication.
 
-## おわりに
+## Conclusion
 
-Spring gRPC と Spring Authorization Server を合体させパスワードレス(private_key_jwt)ができました。
+By combining Spring gRPC and Spring Authorization Server, we achieved passwordless authentication (private_key_jwt).
