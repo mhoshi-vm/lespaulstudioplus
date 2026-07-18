@@ -283,6 +283,11 @@ The idea is to control token issuance based on information that proves the ident
 Typically that would be a TLS certificate (which makes it look somewhat like mTLS), and other options include the source IP or FQDN (assuming they can't be tampered with).
 Either way, you can build this without depending on password-based authentication.
 
+Note that everything above assumes a pure M2M scenario, with no human involved at all.
+But look at what we actually did to trigger the call: we ran `curl localhost:8081` ourselves. That's already a human pressing enter.
+If we accept that a human is present right at that first HTTP hit, passwordless gRPC authentication turns out to have an even simpler answer.
+I'll cover that in the next entry.
+
 ## Conclusion
 
 By combining Spring gRPC and Spring Authorization Server, we achieved passwordless authentication (private_key_jwt).
