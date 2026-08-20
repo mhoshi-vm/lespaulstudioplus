@@ -1,6 +1,6 @@
 ---
 title: "ESXi 上に VVF 9.1（vCenter > VCF Ops > License Server）を CLI 経由で払い出すメモ"
-date: "2026-07-18T14:00:00+09:00"
+date: "2026-08-20T19:00:00+09:00"
 tags: ["VVF", "VCF"]
 thumbnail: img_1.png
 ---
