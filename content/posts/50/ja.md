@@ -1,7 +1,7 @@
 ---
 title: "Spring Enterprise : Application Advisor 解説 (Patch Apply編)"
 date: "2026-08-27T19:00:00+09:00"
-tags: ["Application Advisor", "Spring"]
+tags: ["Application Advisor", "Spring", "Spring Enterprise"]
 thumbnail: img.png
 ---
 Spring Enterprise に付いてくる Application Advisor を、マニュアルを補足する形で紹介します。
@@ -59,7 +59,10 @@ https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html
 Application Advisor は、コードの依存関係を洗い出し、Maven のリポジトリに問い合わせながら、上記の状態を自動的に作ってくれます。
 なお、ここでは Spring を中心に書いていますが、基本的にはアプリケーションの依存関係を総なめするので、Spring 以外のライブラリにも対応できます。
 
-ちなみに、`patch apply` は `pom.xml` / `build.gradle` をその場で書き換えますが、既存のフォーマット（インデントやコメント）は保持されます。ビルドファイルが全面的に整形し直されることはないので、差分は読みやすいです。
+執筆時点では、`patch apply` は Java の各依存関係の [Semantic Versioning](https://semver.org/) に基づいて、適用するパッチバージョンを決めています。
+tools.jackson.core を例にすると、2026 年時点で 3.2.x がリリースされていますが、Spring Boot 4.1 が同梱する 3.1.x から見るとマイナーバージョンアップになってしまうので、適用しません。
+つまり 3.1.4 → 3.1.5 は適用しますが、3.1.4 → 3.2.2 は適用しません。
+Java の依存関係のメジャー・マイナーバージョンのアップグレードには、`patch apply` ではなく `upgrade-plan apply` を使うことになります。
 
 ## Application Advisor を実行するまで
 
@@ -72,10 +75,11 @@ Application Advisor の `patch apply` は、二つのステップで実行でき
 https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/run-app-advisor-cli.html#download-the-native-application-advisor-cli
 
 なお、マニュアルでは curl を使う方法が紹介されていますが、Spring Enterprise Repository を構成していれば、以下のようなコマンドでもダウンロードできます。
-（以下は Mac ARM64 用の 1.6.3 をダウンロードする例です）
+（以下は Mac ARM64 用の 1.6.7 をダウンロードする例です）
+このコマンドを実行すると、tar ファイルは `~/.m2/repository/com/vmware/tanzu/spring/application-advisor-cli-macos-arm64/` に配置されます。
 
 ```
-mvn -U dependency:get -Dartifact=com.vmware.tanzu.spring:application-advisor-cli-macos-arm64:1.6.3:tar -Dtransitive=false
+mvn -U dependency:get -Dartifact=com.vmware.tanzu.spring:application-advisor-cli-macos-arm64:1.6.7:tar -Dtransitive=false
 ```
 
 ### 2. 実行

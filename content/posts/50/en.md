@@ -1,7 +1,7 @@
 ---
 title: "Spring Enterprise: A Guide to Application Advisor (Patch Apply)"
 date: "2026-08-27T19:00:00+09:00"
-tags: ["Application Advisor", "Spring"]
+tags: ["Application Advisor", "Spring", "Spring Enterprise"]
 thumbnail: img.png
 ---
 This post introduces Application Advisor, which comes with Spring Enterprise, as a supplement to the official manual.
@@ -56,7 +56,10 @@ The diagram below illustrates this.
 Application Advisor works out your code's dependencies, queries the Maven repositories, and sets up the state above automatically.
 Note that although this post focuses on Spring, Application Advisor basically walks through all of your application's dependencies, so it works for non-Spring libraries too.
 
-By the way, `patch apply` rewrites `pom.xml` / `build.gradle` in place, but it preserves the existing formatting (indentation and comments). Your build files are never reformatted wholesale, so the diffs stay easy to read.
+As of writing, `patch apply` decides which patch version to apply from each Java dependency's [Semantic Versioning](https://semver.org/).
+Take tools.jackson.core: 3.2.x has been released as of 2026, but from the 3.1.x that Spring Boot 4.1 bundles that is a minor version bump, so it isn't applied.
+In other words it will do 3.1.4 → 3.1.5, but not 3.1.4 → 3.2.2.
+For major and minor version upgrades of a Java dependency you use `upgrade-plan apply` rather than `patch apply`.
 
 ## Getting Application Advisor running
 
@@ -69,10 +72,11 @@ Follow the steps in the manual (the link below is for 1.6).
 https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/run-app-advisor-cli.html#download-the-native-application-advisor-cli
 
 The manual shows how to do this with curl, but if you have the Spring Enterprise Repository configured, you can also download it with a command like the following.
-(This example downloads 1.6.3 for Mac ARM64.)
+(This example downloads 1.6.7 for Mac ARM64.)
+Running it puts the tar under `~/.m2/repository/com/vmware/tanzu/spring/application-advisor-cli-macos-arm64/`.
 
 ```
-mvn -U dependency:get -Dartifact=com.vmware.tanzu.spring:application-advisor-cli-macos-arm64:1.6.3:tar -Dtransitive=false
+mvn -U dependency:get -Dartifact=com.vmware.tanzu.spring:application-advisor-cli-macos-arm64:1.6.7:tar -Dtransitive=false
 ```
 
 ### 2. Run it
