@@ -57,6 +57,7 @@ Application Advisor の CLI には、レシピとマッピング座標が同梱�
 
 Application Advisor はマッピング座標を使い、Step と呼ばれる実行の単位を算出します。
 この実行の単位のたびに `upgrade-plan` はレシピを実行して正常終了します。上の絵の例では、2 Step の実行です。
+（注意：実際に 2.7 からアップグレードすると、ステップ数はもっと多くなります。）
 マニュアルでは、[Spring Petclinic を例にこれが取り上げられています](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/how-to-guides-upgrade-boot.html)。
 
 Application Advisor は、このレシピとマッピング座標をカスタマイズすることが可能です。
@@ -67,11 +68,16 @@ Application Advisor は、このレシピとマッピング座標をカスタマ
 この絵の例では、ある Spring を同梱したカスタムフレームワークを想定しています。
 カスタマイズしたマッピング座標をもとに、そのカスタムフレームワークのバージョンごとの Spring Boot の対応を知ります。
 これをすることで、アップグレードまでの必要なステップが再計算されます。この絵で言えば、1 Step 増えます。
-また、そのステップごとに独自の Recipe を実行することもできます。
+また、そのステップごとに独自のレシピを実行することもできます。
+
+なお、レシピは [OpenRewrite](https://docs.openrewrite.org/) をもとに記述します。
+デフォルトに含まれるレシピを使った軽微な修正から、独自のレシピを Java で書き上げる方法まで、さまざまなやり方をサポートしています。
 
 これをすることで、標準の Spring Boot だけでなく、カスタムのパッケージのアップグレードを行うことが可能です。
+また、ここまで Spring Boot という前提で書いていますが、Spring Framework や他の Java フレームワークでも利用することができます。
 
-なお、ここまで Spring Boot という前提で書いていますが、Spring Framework や他の Java フレームワークでも利用することができます。
+さて、いよいよ、ここからカスタムのレシピとマッピング座標について解説していきます。
+ただし、どうしても最初は難易度が高いものです。実際に行う場合は、Broadcom 社からなんらかのサポートがある体制で臨むことをおすすめします。
 
 # TERASOLUNA の自動アップグレードに挑戦
 
@@ -113,7 +119,8 @@ mvn -U dependency:get -Dartifact=com.vmware.tanzu.spring:application-advisor-cli
 
 ### 2. プランの確認
 
-`upgrade-plan` を実行しています。
+ソースコードのルートディレクトリに移動して
+`upgrade-plan` を実行します。
 
 ```
 advisor upgrade-plan get
@@ -122,28 +129,20 @@ advisor upgrade-plan get
 執筆時点の最新 1.6.7 では以下のような出力になりました。
 
 ```bash
-Build configuration file does not exist! Generating it...
-🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
-🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 03s] ok
-🏃 [ 3 / 6 ] Resolving JDK version [00m 02s] ok
-🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] ok
-🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
-🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s] ok
+advisor upgrade-plan get
+     
+🚀 Existing build-configuration is already up-to-date
 
-🚀 The build-configuration has been generated in /Users/mh013301/terasoluna-gfw/target/.advisor/build-config.json
 
 🏃 Fetching and processing upgrade plan details [00m 01s] ok
 
-The projects ["apache-commons-collections", "apache-commons-lang", "spring-framework", "spring-data-commons"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.
+Projects discovered:
+        - junit: 6.0.x (no upgrades available)
+        - junit-platform: 6.0.x (no upgrades available)
+
+The projects ["spring-framework", "spring-data-commons"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.
 Please request your administrator to configure the projects of the following dependencies:
 
-        - commons-beanutils:commons-beanutils
-                uses:
-                        - apache-commons-collections
-        - com.github.dozermapper:dozer-core
-                uses:
-                        - apache-commons-lang
-                        - apache-commons-collections
         - org.terasoluna.gfw:terasoluna-gfw-common
                 uses:
                         - spring-framework
@@ -156,19 +155,47 @@ Please request your administrator to configure the projects of the following dep
                         - spring-data-commons
                 blocking upgrades for:
                         - spring-data-commons
+        - org.terasoluna.gfw:terasoluna-gfw-jodatime
+                uses:
+                        - spring-framework
+                        - spring-data-commons
+                blocking upgrades for:
+                        - spring-data-commons
 
 In order to learn more about publishing upgrade mappings, visit https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/app-advisor-custom-upgrades.html
 
 No upgrade plans available - your project seems to be up to date.
-
 ```
 
 出力の `could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.` は
 このコンテキストにあわせると、以下のような意味となります。
 
-- ["apache-commons-collections", "apache-commons-lang", "spring-framework", "spring-data-commons"] は TERASOLUNA(for other projects 部分)の推移的依存関係(Transitive Dependency)
+- ["spring-framework", "spring-data-commons"] は TERASOLUNA(for other projects 部分)の推移的依存関係(Transitive Dependency)
 - これら推移的依存関係と TERASOLUNA の対応関係がわからない
 - よって、アップグレードができない
+
+この出力は、TERASOLUNA の関連ライブラリが更新できないことを示唆しています。
+
+```
+        - org.terasoluna.gfw:terasoluna-gfw-common
+                uses:
+                        - spring-framework
+                        - spring-data-commons
+                blocking upgrades for:
+                        - spring-data-commons
+        - org.terasoluna.gfw:terasoluna-gfw-web
+                uses:
+                        - spring-framework
+                        - spring-data-commons
+                blocking upgrades for:
+                        - spring-data-commons
+        - org.terasoluna.gfw:terasoluna-gfw-jodatime
+                uses:
+                        - spring-framework
+                        - spring-data-commons
+                blocking upgrades for:
+                        - spring-data-commons
+```
 
 つまり、エラーになって何もアップグレードできなかったというものです。
 特にマッピングは指定していないので、ここまでは想定通りです。
@@ -183,7 +210,8 @@ No upgrade plans available - your project seems to be up to date.
   "slug": "terasoluna-gfw",
   "coordinates": [
     "org.terasoluna.gfw:terasoluna-gfw-common",
-    "org.terasoluna.gfw:terasoluna-gfw-web"
+    "org.terasoluna.gfw:terasoluna-gfw-web",
+    "org.terasoluna.gfw:terasoluna-gfw-jodatime"
   ],
   "repositoryUrl": "https://github.com/terasolunaorg/terasoluna-gfw",
   "rewrite": {
@@ -218,6 +246,14 @@ No upgrade plans available - your project seems to be up to date.
 }
 ```
 
+中身としては、以下がポイントになります。
+
+- 元のコードが解決できなかったマッピングを `coordinates` に記載
+- `rewrite` に依存関係のバージョンを、`requirements` に依存する他の Spring ライブラリを記載
+- `nextRewrite` に次のバージョンを記載
+
+なお、本来は TERASOLUNA 5.9.x 以降も記載すべきですが、今回は省略しています。
+
 そして以下の環境変数を export します。
 
 ```bash
@@ -227,7 +263,7 @@ export SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=<配置ディレクトリ>/teras
 この状態で Advisor CLI v1.6.7 を実行すると、以下のようになります。
 
 ```bash
-mh013301@PJQ72XCV5C terasoluna-gfw % advisor upgrade-plan get
+advisor upgrade-plan get
      
 🚀 Existing build-configuration is already up-to-date
 
@@ -236,29 +272,23 @@ mh013301@PJQ72XCV5C terasoluna-gfw % advisor upgrade-plan get
 🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
 
 Projects discovered:
+        - junit: 6.0.x (no upgrades available)
+        - junit-platform: 6.0.x (no upgrades available)
         - terasoluna-gfw: 5.7.x → 5.8.x
         - spring-data-commons: 2.7.x → 4.1.x
         - spring-framework: 5.3.x → 7.0.x
 
-The projects ["apache-commons-collections", "apache-commons-lang"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.
-Please request your administrator to configure the projects of the following dependencies:
-
-        - commons-beanutils:commons-beanutils
-                uses:
-                        - apache-commons-collections
-        - com.github.dozermapper:dozer-core
-                uses:
-                        - apache-commons-lang
-                        - apache-commons-collections
-
-In order to learn more about publishing upgrade mappings, visit https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/app-advisor-custom-upgrades.html
-
-
 Upgrade Plan for your Dependencies:
         - Step 1:
                 * Upgrade terasoluna-gfw from 5.7.x to 5.8.x
-                * Upgrade spring-data-commons from 2.7.x to 3.5.x
-                * Upgrade spring-framework from 5.3.x to 6.2.x
+                * Upgrade spring-data-commons from 2.7.x to 3.0.x
+                * Upgrade spring-framework from 5.3.x to 6.0.x
+        - Step 2:
+                * Upgrade spring-framework from 6.0.x to 6.1.x
+                * Upgrade spring-data-commons from 3.0.x to 3.2.x
+        - Step 3:
+                * Upgrade spring-framework from 6.1.x to 6.2.x
+                * Upgrade spring-data-commons from 3.2.x to 3.5.x
 
 Some upgrades were not included in the upgrade plan.
 Please, upgrade and release if needed the following projects:
@@ -268,17 +298,35 @@ Please, upgrade and release if needed the following projects:
                 Last version of spring-data-commons is 3.0.x
 ```
 
-相変わらず、エラーは出ていますが、以下がポイントです。
+以下がポイントです。
 
-```
+```diff
 Upgrade Plan for your Dependencies:
         - Step 1:
-                * Upgrade terasoluna-gfw from 5.7.x to 5.8.x
-                * Upgrade spring-data-commons from 2.7.x to 3.5.x
-                * Upgrade spring-framework from 5.3.x to 6.2.x
++               * Upgrade terasoluna-gfw from 5.7.x to 5.8.x
+                * Upgrade spring-data-commons from 2.7.x to 3.0.x
+                * Upgrade spring-framework from 5.3.x to 6.0.x
+        - Step 2:
+                * Upgrade spring-framework from 6.0.x to 6.1.x
+                * Upgrade spring-data-commons from 3.0.x to 3.2.x
+        - Step 3:
+                * Upgrade spring-framework from 6.1.x to 6.2.x
+                * Upgrade spring-data-commons from 3.2.x to 3.5.x
 ```
 
-この状態にもあるように、マッピング座標ファイルにより、最初の Step が定義できています。
+この出力にもあるように、マッピング座標ファイルにより、Step が定義できています。
+特に `Upgrade terasoluna-gfw from 5.7.x to 5.8.x` とあるように、カスタムライブラリの更新もマッピング座標ファイルによって定義されました。
+なお、以下の出力が出ているのは、マッピング座標ファイルに TERASOLUNA 5.9.x 以降を記載していないためです。
+
+```
+Some upgrades were not included in the upgrade plan.
+Please, upgrade and release if needed the following projects:
+        * terasoluna-gfw:5.8.x
+                Last version of spring-framework is 6.0.x
+        * terasoluna-gfw:5.8.x
+                Last version of spring-data-commons is 3.0.x
+```
+
 この状態で、`apply` を実行して実際の変更をかけます。
 
 ```bash
@@ -286,52 +334,8 @@ advisor upgrade-plan apply
 ```
 
 Advisor CLI 1.6.7 で実行すると以下のような出力になりました。
-色々なエラーは出ていますが、最終的にバージョンのアップグレードを行っています。
 
 ```bash
-     
-🚀 Existing build-configuration is already up-to-date
-
-
-🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
-🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
-
-Projects discovered:
-        - terasoluna-gfw: 5.7.x → 5.8.x
-        - spring-data-commons: 2.7.x → 4.1.x
-        - spring-framework: 5.3.x → 7.0.x
-
-The projects ["apache-commons-collections", "apache-commons-lang"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.
-Please request your administrator to configure the projects of the following dependencies:
-
-        - commons-beanutils:commons-beanutils
-                uses:
-                        - apache-commons-collections
-        - com.github.dozermapper:dozer-core
-                uses:
-                        - apache-commons-lang
-                        - apache-commons-collections
-
-In order to learn more about publishing upgrade mappings, visit https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/app-advisor-custom-upgrades.html
-
-
-Upgrade Plan for your Dependencies:
-        - Step 1:
-                * Upgrade terasoluna-gfw from 5.7.x to 5.8.x
-                * Upgrade spring-data-commons from 2.7.x to 3.5.x
-                * Upgrade spring-framework from 5.3.x to 6.2.x
-
-Some upgrades were not included in the upgrade plan.
-Please, upgrade and release if needed the following projects:
-        * terasoluna-gfw:5.8.x
-                Last version of spring-framework is 6.0.x
-        * terasoluna-gfw:5.8.x
-                Last version of spring-data-commons is 3.0.x
-mh013301@PJQ72XCV5C terasoluna-gfw % 
-mh013301@PJQ72XCV5C terasoluna-gfw % 
-mh013301@PJQ72XCV5C terasoluna-gfw % 
-mh013301@PJQ72XCV5C terasoluna-gfw % advisor upgrade-plan apply
-     
 🚀 Existing build-configuration is already up-to-date
 
 
@@ -339,26 +343,12 @@ mh013301@PJQ72XCV5C terasoluna-gfw % advisor upgrade-plan apply
 🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s] ok
 🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
 
-The projects ["apache-commons-collections", "apache-commons-lang"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.
-Please request your administrator to configure the projects of the following dependencies:
-
-        - commons-beanutils:commons-beanutils
-                uses:
-                        - apache-commons-collections
-        - com.github.dozermapper:dozer-core
-                uses:
-                        - apache-commons-lang
-                        - apache-commons-collections
-
-In order to learn more about publishing upgrade mappings, visit https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/app-advisor-custom-upgrades.html
-
-
 Projects to upgrade:
         * terasoluna-gfw from 5.7.x to 5.8.x
-        * spring-data-commons from 2.7.x to 3.5.x
-        * spring-framework from 5.3.x to 6.2.x
+        * spring-data-commons from 2.7.x to 3.0.x
+        * spring-framework from 5.3.x to 6.0.x
 
-🔨 [ 4 / 4 ] Upgrading sources... [00m 14s] ok
+🔨 [ 4 / 4 ] Upgrading sources... [00m 18s] ok
 
 👍 Successfully applied upgrade.
 
@@ -370,61 +360,96 @@ Projects to upgrade:
 
 実際の変更を `git diff` でみると以下が見えます。
 
-まず、TERASOLUNA のバージョンをあげています。
+まず、TERASOLUNA のバージョンが上がっています。
+あわせて、Spring Framework 6 系が Java 8 のサポートを廃止したことにより、Javax > Jakarta ドメインの変更と最新化も行えています。
 
-```
+```diff
 diff --git a/pom.xml b/pom.xml
-index 801bfd3..6fe5e3e 100644
+index c170406..1d7b1e3 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -15,7 +15,7 @@
+@@ -14,7 +14,7 @@
    <properties>
      <maven.compiler.release>17</maven.compiler.release>
      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 -    <terasoluna.version>5.7.4.RELEASE</terasoluna.version>
 +    <terasoluna.version>5.8.1.RELEASE</terasoluna.version>
    </properties>
-    
-   <dependencies>
-```
-
-さらには、Spring Framework 6系が Java8 のサポートを廃止したことにより、Javax > Jakarta ドメインの変更と最新化も行えています。
-
-```bash
-
-@@ -38,9 +38,9 @@
+ 
+   <dependencyManagement>
+@@ -60,8 +60,8 @@
      </dependency>
  
      <dependency>
 -      <groupId>javax.servlet</groupId>
 -      <artifactId>javax.servlet-api</artifactId>
--      <version>4.0.1</version>
 +      <groupId>jakarta.servlet</groupId>
 +      <artifactId>jakarta.servlet-api</artifactId>
-+      <version>6.1.0</version>
        <scope>provided</scope>
      </dependency>
-   </dependencies>
+
 ```
 
 さらに、Spring Framework 6 から URL 末尾の "/" が既定でマッチしなくなったため、その補助もやっています。
 （これは Advisor CLI の同梱レシピによるものです。）
 
-```bash
-diff --git a/src/main/java/com/example/demo/TodoController.java b/src/main/java/com/example/demo/TodoController.java
-index 1813c87..d5ae2f5 100644
---- a/src/main/java/com/example/demo/TodoController.java
-+++ b/src/main/java/com/example/demo/TodoController.java
-@@ -18,7 +18,7 @@ public class TodoController {
-         this.beanMapper = beanMapper;
+```diff
+diff --git a/src/main/java/com/example/demo/GreetingController.java b/src/main/java/com/example/demo/GreetingController.java
+index b7d903f..09f6305 100644
+--- a/src/main/java/com/example/demo/GreetingController.java
++++ b/src/main/java/com/example/demo/GreetingController.java
+@@ -13,7 +13,7 @@ public class GreetingController {
+         this.service = service;
      }
  
--    @PostMapping("/todos")
-+    @PostMapping({"/todos", "/todos/"})
-     public Todo create(@RequestBody TodoForm form) {
-         return beanMapper.map(form, Todo.class);
+-    @GetMapping("/greet")
++    @GetMapping({"/greet", "/greet/"})
+     public String greet(@RequestParam(defaultValue = "world") String who) {
+         return service.greet(who);
      }
 ```
+
+過去には、Spring Framework で JavaConfig ではなく XML による Bean 定義が主流だった時代がありましたが、それに関しても変更ができています。
+
+```diff
+diff --git a/src/main/resources/applicationContext.xml b/src/main/resources/applicationContext.xml
+index a527888..f799a1e 100644
+--- a/src/main/resources/applicationContext.xml
++++ b/src/main/resources/applicationContext.xml
+@@ -5,11 +5,11 @@
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+-         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
++         https://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+-         http://www.springframework.org/schema/context/spring-context-4.3.xsd
++         https://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/mvc
+-         http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
++         https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+ 
+   <!-- The whole application context. TERASOLUNA blank projects are wired in
+        XML, not with @Configuration classes. -->
+diff --git a/src/main/webapp/WEB-INF/web.xml b/src/main/webapp/WEB-INF/web.xml
+index 21d02bd..82263d6 100644
+--- a/src/main/webapp/WEB-INF/web.xml
++++ b/src/main/webapp/WEB-INF/web.xml
+@@ -1,9 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
++<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+-                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+-         version="4.0">
++         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
++         version="6.0">
+ 
+   <servlet>
+     <servlet-name>dispatcher</servlet-name>
+```
+
 
 なお、さらに、`sql-error-codes.xml` と `src/main/resources/META-INF/spring.factories` というファイルができています。
 これらは、Spring Framework 5の動作維持のために作られます。この記事の本質ではないので、ぜひ自分で試してみてください。
@@ -432,18 +457,18 @@ index 1813c87..d5ae2f5 100644
 ## カスタマイズのレシピで upgrade-plan 実行
 
 ここではさらにカスタマイズのレシピを入れて実行してみます。
-ここでは、TERASOLUNA のガイドにある[2.14. [Step 14] Dozer から MapStruct への移行](https://github.com/terasolunaorg/terasoluna-gfw/wiki/Migration-Guide-5.8.1_ja#step-14-dozer-%E3%81%8B%E3%82%89-mapstruct-%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C)を実装してみます。
+ここでは、TERASOLUNA のガイドにある[2.15. [Step 15] Joda Time から JSR-310 への移行](https://github.com/terasolunaorg/terasoluna-gfw/wiki/Migration-Guide-5.8.1_ja#step-15-joda-time-%E3%81%8B%E3%82%89-jsr-310-%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C)を実装してみます。
 
 まず、先ほどの変更を一旦リセットします。
 
 ```bash
-git stash
+git reset --hard HEAD
 ```
 
 ### マッピングファイルにレシピを登録
 
 以下のマッピングファイルにレシピを登録します。
-```json
+```diff
 {
   "slug": "terasoluna-gfw",
   "coordinates": [
@@ -454,24 +479,37 @@ git stash
   "rewrite": {
     "5.7.x": {
       "recipes": [
-        {
-          "name": "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
-          "params": {
-            "groupId": "org.terasoluna.gfw",
-            "artifactId": "*",
-            "newVersion": "5.8.x"
-          }
-        },
-        {
-          "name": "org.openrewrite.java.dependencies.ChangeDependency",
-          "params": {
-            "oldGroupId": "com.github.dozermapper",
-            "oldArtifactId": "dozer-core",
-            "newGroupId": "org.mapstruct",
-            "newArtifactId": "mapstruct",
-            "newVersion": "1.5.3.Final"
-          }
-        }
++       {
++         "name": "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
++         "params": {
++           "groupId": "org.terasoluna.gfw",
++           "artifactId": "*",
++           "newVersion": "5.8.x"
++         }
++       },
++       {
++         "name": "org.openrewrite.java.ChangeType",
++         "params": {
++           "oldFullyQualifiedTypeName": "org.terasoluna.gfw.common.date.jodatime.JodaTimeDateFactory",
++           "newFullyQualifiedTypeName": "org.terasoluna.gfw.common.date.ClassicDateFactory"
++         }
++       },
++       {
++         "name": "org.openrewrite.xml.ChangeTagAttribute",
++         "params": {
++            "elementName": "bean",
++            "attributeName": "class",
++            "oldValue": "org.terasoluna.gfw.common.date.jodatime.DefaultJodaTimeDateFactory",
++            "newValue": "org.terasoluna.gfw.common.date.DefaultClassicDateFactory"
++          }
++        },
++        {
++          "name": "org.openrewrite.java.dependencies.RemoveDependency",
++          "params": {
++            "groupId": "org.terasoluna.gfw",
++            "artifactId": "terasoluna-gfw-jodatime"
++          }
++        }
       ],
       "nextRewrite": {
         "version": "5.8.x"
@@ -502,16 +540,8 @@ git stash
 }
 ```
 
-ここで `ChangeDependency` だけでなく `UpgradeDependencyVersion` も書いている点が、重要です。
-
-**`recipes` を空でなくすると、advisor が自動でやってくれるバージョン更新が「置き換わり」ます。**
-同じアプリで3通り試すと、こうなりました。
-
-| `5.7.x` の `recipes` | `terasoluna.version` | Dozer |
-| --- | --- | --- |
-| `[]` | `5.7.4` → `5.8.1.RELEASE` | そのまま |
-| `ChangeDependency` のみ | **`5.7.4` のまま** | → `mapstruct` |
-| `UpgradeDependencyVersion` + `ChangeDependency` | `5.7.4` → `5.8.1.RELEASE` | → `mapstruct` |
+一つ前のマッピング座標ファイルをもとに、`5.7.x` の `recipes` を追加しています。
+ここでは TERASOLUNA の移行ガイドにあるように、依存関係の差し替えをレシピによって表現しています。
 
 再度実行します。
 
@@ -523,45 +553,63 @@ advisor upgrade-plan apply
 実行結果は省略して、`git diff` をみてみます。
 すると先ほどの結果に加え以下が実行されており、レシピが実行されたことがわかります。
 
-```bash
-     <!-- The bean mapper TERASOLUNA 5.8.1 replaces with MapStruct. -->
+```diff
+-    <!-- Joda-Time support. TERASOLUNA drops this at 5.8: the migration guide's
+-         [Step 15] replaces it with the JSR-310 ClockFactory. -->
      <dependency>
--      <groupId>com.github.dozermapper</groupId>
--      <artifactId>dozer-core</artifactId>
--      <version>6.5.2</version>
-+      <groupId>org.mapstruct</groupId>
-+      <artifactId>mapstruct</artifactId>
-+      <version>1.5.3.Final</version>
-     </dependency>
+-      <groupId>org.terasoluna.gfw</groupId>
+-      <artifactId>terasoluna-gfw-jodatime</artifactId>
+-      <version>${terasoluna.version}</version>
+-    </dependency>
 ```
 
-これでアップグレードは成功・・・と行きたいところなのですが、この段階では、中途半端な対応をしてしまったために、以下のように実際のコードはエラーになります。
+コードも書き変わっています。
 
-![img_3.png](img_3.png)
+```diff
+diff --git a/src/main/java/com/example/demo/GreetingService.java b/src/main/java/com/example/demo/GreetingService.java
+index b9c704e..0cc8b2d 100644
+--- a/src/main/java/com/example/demo/GreetingService.java
++++ b/src/main/java/com/example/demo/GreetingService.java
+@@ -2,7 +2,7 @@ package com.example.demo;
+ 
+ import java.util.Date;
+ import org.springframework.stereotype.Service;
+-import org.terasoluna.gfw.common.date.jodatime.JodaTimeDateFactory;
++import org.terasoluna.gfw.common.date.ClassicDateFactory;
+ 
+ /**
+  * TERASOLUNA's guideline marks service classes with Spring's @Service
+@@ -14,9 +14,9 @@ import org.terasoluna.gfw.common.date.jodatime.JodaTimeDateFactory;
+ @Service
+ public class GreetingService {
+ 
+ @Service
+ public class GreetingService {
+ 
+-    private final JodaTimeDateFactory dateFactory;
++    private final ClassicDateFactory dateFactory;
+ 
+-    public GreetingService(JodaTimeDateFactory dateFactory) {
++    public GreetingService(ClassicDateFactory dateFactory) {
+         this.dateFactory = dateFactory;
+     }
+```
 
-これ以上やると本質からずれますが、このケースでは、もうすこし凝ったレシピが必要です・・・
-以下のような処理が必要と考えられます。
-
-| やりたいこと | レシピ |
-| --- | --- |
-| フィールドとコンストラクタの型を差し替え | `org.openrewrite.java.ChangeType` |
-| `map(form, Todo.class)` → `map(form)` | `org.openrewrite.text.FindAndReplace`（正規表現） |
-| `@Mapper` インターフェースの追加 | `FindAndReplace` で既存ファイルの末尾に追記 |
-| `annotationProcessorPaths` の設定 | `FindAndReplace` で `pom.xml` に注入 |
-
-このブログではレシピについてはこれ以上取り上げないですが、いずれにせよ、Advisor CLI が知らない TERASOLUNA のアップグレードを行えました。
+これで必要なアップグレードは自動化できました。
+簡単なテストも入れていますが、`./mvnw test` を実行すると問題なく完了します。
+このように、Advisor CLI が知らない TERASOLUNA のアップグレードを行えました。
 
 ## upgrade-plan を本番で使うためには？
 
 その他、これを本番で使っていくためのコツを書いていきます。
 
-### え・・・レシピとマッピング座標を作るの面倒なのだけど・・・
+### レシピとマッピング座標を管理するの面倒なのだけど・・・
 
-Broadcom としては、可能な限り、レシピとマッピングはユーザーが作らずともデフォルトで動くように努めています。
+Broadcom としては、可能な限り、レシピとマッピング座標はユーザーが作らずともデフォルトで動くように努めています。
 まずは、Broadcom に対して、サポートチケットをあげることをお勧めします。
 ある程度、理にかなっていれば、レシピとマッピングを以後のリリースに同梱することは可能です。
 
-カスタムのレシピとマッピングはあくまで、世に知られていないプライベートな依存関係や、一時的なワークアラウンドの目的で作るものです。
+今回紹介しているカスタムのレシピとマッピングはあくまで、世に知られていないプライベートな依存関係や、一時的なワークアラウンドの目的で作るものです。
 
 ### マッピング座標を作るの面倒なのだけど・・・
 
