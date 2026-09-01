@@ -597,7 +597,12 @@ index b9c704e..0cc8b2d 100644
 
 With that, the upgrade we needed has been automated.
 There are some simple tests in the project as well, and running `./mvnw test` completes without problems.
+**(Note: the Joda Time migration done here is a fairly simple one. In practice you would follow the guide and draw up a more thorough plan.)**
 And so we managed to upgrade TERASOLUNA, which the Advisor CLI knows nothing about.
+
+All of the changes made up to this point can be seen here.
+
+https://github.com/mhoshi-vm/simple-terasoluna/pull/1/changes
 
 ## What does it take to use upgrade-plan in production?
 

@@ -597,7 +597,12 @@ index b9c704e..0cc8b2d 100644
 
 これで必要なアップグレードは自動化できました。
 簡単なテストも入れていますが、`./mvnw test` を実行すると問題なく完了します。
+**（注意：ここではかなり単純な Joda Time の移行を行っていますが、実際にはガイドに従い、より綿密な計画が必要と思われます。）**
 このように、Advisor CLI が知らない TERASOLUNA のアップグレードを行えました。
+
+ここまで行った全ての変更は以下でみられます。
+
+https://github.com/mhoshi-vm/simple-terasoluna/pull/1/changes
 
 ## upgrade-plan を本番で使うためには？
 
