@@ -1,11 +1,11 @@
 ---
-title: "Spring Enterprise : Application Advisor 解説 (Upgrade Plan編)"
-date: "2026-09-03T19:00:00+09:00"
+title: "Spring Enterprise : Application Advisor 解説 (Upgrade Plan 編)"
+date: "2026-09-01T19:00:00+09:00"
 tags: ["Application Advisor", "Spring"]
 thumbnail: img.png
 ---
 Spring Enterprise についてくる Application Advisor のマニュアルを補足する形で紹介します。
-[前回](../50)の `patch apply` に続いて、このエントリでは `upgrade-plan apply` の機能に絞って紹介します。
+[前回](../50) の `patch apply` に続いて、このエントリでは `upgrade-plan apply` の機能に絞って紹介します。
 <!--more-->
 
 ## はじめに
@@ -17,36 +17,36 @@ Spring Enterprise についてくる Application Advisor のマニュアルを�
 - `advisor upgrade-plan apply`:
 マイナーバージョンおよびメジャーバージョンのアップグレードに使用
 
-今回は後者です。マニュアルは[こちら(v1.6)](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6.html)です。
+今回は後者です。マニュアルは [こちら(v1.6)](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6.html) です。
 
 ![img.png](img.png)
 
 `patch apply` が「3.1.4 → 3.1.5」のようなパッチバージョンだけを見るのに対して、
 `upgrade-plan apply` は「Spring Boot 2.7 → 3.5」のような世代をまたぐアップグレードを担当します。
 
-なお、ここでいう、パッチやマイナーアップグレードは、Java の各依存関係の [Semantic Versioning](https://semver.org/)を想定しています。
-つまり、以下のように例で考えます。
+なお、ここでいう、パッチやマイナーアップグレードは、Java の各依存関係の [Semantic Versioning](https://semver.org/) を想定しています。
+つまり、以下のような例で考えます。
 
-- 3.1.4 > 3.1.5 : パッチ適用
-- 3.1.4 > 3.2.2 : マイナーアップグレード
-- 3.1.4 > 4.0.3 : メジャーアップグレード
+- 3.1.4 → 3.1.5 : パッチ適用
+- 3.1.4 → 3.2.2 : マイナーアップグレード
+- 3.1.4 → 4.0.3 : メジャーアップグレード
 
-パッチ適用の作りの前提としては、ユーザーコードには影響がないもの、想定しています。
+パッチ適用の作りの前提としては、ユーザーコードには影響がないものと想定しています。
 そのため、`patch apply` は特にユーザーコードは弄らず、依存関係の更新を行うものでした。
-ところが、メジャー・マイナーアップグレードはユーザーコードへの影響がありうるため、`patch apply`とは違う作りが必要になってきます。
+ところが、メジャー・マイナーアップグレードはユーザーコードへの影響がありうるため、`patch apply` とは違う作りが必要になってきます。
 
 ## レシピとマッピング座標とは？
 
 `upgrade-plan apply` コマンドには、`patch apply` にはない概念が登場します。
-それが、`レシピ(Recipe)`と`マッピング座標(Mappign Coordinates)`です。
+それが、`レシピ(Recipe)` と `マッピング座標(Mapping Coordinates)` です。
 
 以下の概念を持ちます。
 
-- `レシピ(Recipe)`：メジャー・マイナーアップグレード間で発生する非互換なコードを修正するため、OpenRewriteフレームワークをベースに書かれたコード
-- `マッピング座標(Mappign Coordinates)` : 各依存関係のバージョンの対応表の役割をしており、`step` の回数を求めるのに使われます。
+- `レシピ(Recipe)`：メジャー・マイナーアップグレード間で発生する非互換なコードを修正するため、OpenRewrite フレームワークをベースに書かれたコード
+- `マッピング座標(Mapping Coordinates)` : 各依存関係のバージョンの対応表の役割をしており、`step` の回数を求めるのに使われます。
 
-Application Advisor はCLIの中に、レシピとマッピング座標が同梱されております。
-マニュアルのいかにその詳細が記載されています。
+Application Advisor の CLI には、レシピとマッピング座標が同梱されています。
+マニュアルの以下にその詳細が記載されています。
 
 - [Application Advisor 1.6 のレシピ一覧](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/recipes-index-index-boot-recipes.html)
 - [Application Advisor v1.6.7 のマッピング座標](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/coverage-1-6-7.html)
@@ -55,23 +55,23 @@ Application Advisor はCLIの中に、レシピとマッピング座標が同梱
 
 ![img_1.png](img_1.png)
 
-Application Advisor はマッピング座標を使い、Stepと呼ばれる実行の単位を算出します。
-この実行の単位のたびに `upgrade-plan` はレシピを実行して正常終了します。上の絵の例では、2 Stepの実行です。
-マニュアルでは、[Spring Petclinicを例にこれが取り上げられています](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/how-to-guides-upgrade-boot.html)。
+Application Advisor はマッピング座標を使い、Step と呼ばれる実行の単位を算出します。
+この実行の単位のたびに `upgrade-plan` はレシピを実行して正常終了します。上の絵の例では、2 Step の実行です。
+マニュアルでは、[Spring Petclinic を例にこれが取り上げられています](https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-6/app-advisor/how-to-guides-upgrade-boot.html)。
 
 Application Advisor は、このレシピとマッピング座標をカスタマイズすることが可能です。
-これをすることに以下のようなアップグレードもサポートが可能です。
+これをすることで、以下のようなアップグレードもサポートが可能になります。
 
 ![img_2.png](img_2.png)
 
-この絵の例では、あるSpringを同梱したカスタムフレームワークを想定しています。
-カスタマイズしたマッピング座標をもとに、そのカスタムフレームワークのバージョンごとのSpring Bootの対応を知ります。
-これをすることで、アップグレードまでの必要なステップが再計算されます。この絵で言えば、1 Step増えます。
-また、そのステップごとに独自のRecipeを実行することもできます。
+この絵の例では、ある Spring を同梱したカスタムフレームワークを想定しています。
+カスタマイズしたマッピング座標をもとに、そのカスタムフレームワークのバージョンごとの Spring Boot の対応を知ります。
+これをすることで、アップグレードまでの必要なステップが再計算されます。この絵で言えば、1 Step 増えます。
+また、そのステップごとに独自の Recipe を実行することもできます。
 
-これをすることで、標準のSpringBootだけでなく、カスタムのパッケージのアップグレードを行うことが可能です。
+これをすることで、標準の Spring Boot だけでなく、カスタムのパッケージのアップグレードを行うことが可能です。
 
-なお、ここまで Spring Boot という前提で書いていますが、Spring Framework や他のJavaフレームワークでも利用することができます。
+なお、ここまで Spring Boot という前提で書いていますが、Spring Framework や他の Java フレームワークでも利用することができます。
 
 # TERASOLUNA の自動アップグレードに挑戦
 
@@ -89,20 +89,22 @@ TERASOLUNA と Spring Framework は以下の対応関係（私調べ）を持っ
 | `5.10.x` | 6.2.15 | 3.5.7 | 6.5.7 |
 | `5.11.x` | 7.0.3 | 4.0.2 | 7.0.2 |
 
-見ての通り、5.7 > 5.8 が Spring Framework 5系から6系へと大きな変更が伴っています。
+見ての通り、5.7 → 5.8 が Spring Framework 5系から6系へと大きな変更が伴っています。
 これを Application Advisor でアップグレード可能かやってみます。
 
 ## サンプルコード
 
 ここに配置しました。
 
+https://github.com/mhoshi-vm/simple-terasoluna
+
 ## カスタマイズなしで upgrade-plan 実行
 
-まず、カスタマイズなしでupgrade-planを実行します。
+まず、カスタマイズなしで upgrade-plan を実行します。
 
 ### 1. CLI のダウンロード
 
-[前回](../50)と同じです。マニュアルの手順、または Spring Enterprise Repository を構成していれば以下でも取れます。
+[前回](../50) と同じです。マニュアルの手順、または Spring Enterprise Repository を構成していれば以下でも取れます。
 (以下は Mac ARM64用の 1.6.7 をダウンロードする )
 
 ```
@@ -161,11 +163,11 @@ No upgrade plans available - your project seems to be up to date.
 
 ```
 
-出力の`could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.`は
+出力の `could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.` は
 このコンテキストにあわせると、以下のような意味となります。
 
-- ["apache-commons-collections", "apache-commons-lang", "spring-framework", "spring-data-commons"] はTERASOLUNA(for other projects 部分)の推移的依存関係(Trasitive Dependency)
-- これら推移的依存関係と TERASOLUNAの対応関係がわからない
+- ["apache-commons-collections", "apache-commons-lang", "spring-framework", "spring-data-commons"] は TERASOLUNA(for other projects 部分)の推移的依存関係(Transitive Dependency)
+- これら推移的依存関係と TERASOLUNA の対応関係がわからない
 - よって、アップグレードができない
 
 つまり、エラーになって何もアップグレードできなかったというものです。
@@ -174,7 +176,7 @@ No upgrade plans available - your project seems to be up to date.
 ## カスタマイズのマッピングで upgrade-plan 実行
 
 以下のカスタムのマッピングを任意のディレクトリにつくります。
-ファイル名も任意ですが、`terasoluna.json`にします。
+ファイル名も任意ですが、`terasoluna.json` にします。
 
 ```json
 {
@@ -222,7 +224,7 @@ No upgrade plans available - your project seems to be up to date.
 export SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=<配置ディレクトリ>/terasoluna.json
 ```
 
-この状態で Advisor CLI の v1.6.7 で実行すると、以下のようにエラーになっています。
+この状態で Advisor CLI v1.6.7 を実行すると、以下のようになります。
 
 ```bash
 mh013301@PJQ72XCV5C terasoluna-gfw % advisor upgrade-plan get
@@ -266,7 +268,7 @@ Please, upgrade and release if needed the following projects:
                 Last version of spring-data-commons is 3.0.x
 ```
 
-相変わらず、エラーはでていますが、以下がポイントです。
+相変わらず、エラーは出ていますが、以下がポイントです。
 
 ```
 Upgrade Plan for your Dependencies:
@@ -276,15 +278,15 @@ Upgrade Plan for your Dependencies:
                 * Upgrade spring-framework from 5.3.x to 6.2.x
 ```
 
-この状態にもあるように、マッピング座標ファイルにより、最初のStepが定義できております。
-この状態で、`apply` を入れ実際の変更をしかけます。
+この状態にもあるように、マッピング座標ファイルにより、最初の Step が定義できています。
+この状態で、`apply` を実行して実際の変更をかけます。
 
 ```bash
-advisor upgrade-plan get
+advisor upgrade-plan apply
 ```
 
-advisor cli 1.6.7 で実行すると以下のような出力になりました。
-色々なエラーはでていますが、最終的にバージョンのアップグレードを行っています。
+Advisor CLI 1.6.7 で実行すると以下のような出力になりました。
+色々なエラーは出ていますが、最終的にバージョンのアップグレードを行っています。
 
 ```bash
      
@@ -366,10 +368,9 @@ Projects to upgrade:
 * Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
 ```
 
-advisorが行った変更は git に保存されます。
-実際の変更を `git diff`でみると以下が見えます。
+実際の変更を `git diff` でみると以下が見えます。
 
-まず、TERASOLUNAのバージョンをあげています。
+まず、TERASOLUNA のバージョンをあげています。
 
 ```
 diff --git a/pom.xml b/pom.xml
@@ -387,7 +388,7 @@ index 801bfd3..6fe5e3e 100644
    <dependencies>
 ```
 
-さらには、Spring Framework 5系が Java8 のサポートを廃止したことにより、Javax > Jakarata ドメインの変更と最新化も行えています。
+さらには、Spring Framework 6系が Java8 のサポートを廃止したことにより、Javax > Jakarta ドメインの変更と最新化も行えています。
 
 ```bash
 
@@ -406,8 +407,8 @@ index 801bfd3..6fe5e3e 100644
    </dependencies>
 ```
 
-さらに、Spring Framework 6 から標準になったURL末尾"/" の明示指定が必須になったので、それの補助もやっています。
-（これは advisor cli の同梱レシピによるものです。）
+さらに、Spring Framework 6 から URL 末尾の "/" が既定でマッチしなくなったため、その補助もやっています。
+（これは Advisor CLI の同梱レシピによるものです。）
 
 ```bash
 diff --git a/src/main/java/com/example/demo/TodoController.java b/src/main/java/com/example/demo/TodoController.java
@@ -425,18 +426,18 @@ index 1813c87..d5ae2f5 100644
      }
 ```
 
-なお、さらに、`sql-error-codes.xml`と`src/main/resources/META-INF/spring.factories` というファイルができています。
-これらは、Spring Framework 5の動作維持のために作られます。この記事の本質ではないのでぜひ、自分で試して実行してみてください。
+なお、さらに、`sql-error-codes.xml` と `src/main/resources/META-INF/spring.factories` というファイルができています。
+これらは、Spring Framework 5の動作維持のために作られます。この記事の本質ではないので、ぜひ自分で試してみてください。
 
 ## カスタマイズのレシピで upgrade-plan 実行
 
 ここではさらにカスタマイズのレシピを入れて実行してみます。
-ここでは、TERASOLUNAのガイドにある[2.14. [Step 14] Dozer から MapStruct への移行](https://github.com/terasolunaorg/terasoluna-gfw/wiki/Migration-Guide-5.8.1_ja#step-14-dozer-%E3%81%8B%E3%82%89-mapstruct-%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C)を実装してみます。
+ここでは、TERASOLUNA のガイドにある[2.14. [Step 14] Dozer から MapStruct への移行](https://github.com/terasolunaorg/terasoluna-gfw/wiki/Migration-Guide-5.8.1_ja#step-14-dozer-%E3%81%8B%E3%82%89-mapstruct-%E3%81%B8%E3%81%AE%E7%A7%BB%E8%A1%8C)を実装してみます。
 
 まず、先ほどの変更を一旦リセットします。
 
 ```bash
-git reset --hard HEAD~1
+git stash
 ```
 
 ### マッピングファイルにレシピを登録
@@ -501,6 +502,17 @@ git reset --hard HEAD~1
 }
 ```
 
+ここで `ChangeDependency` だけでなく `UpgradeDependencyVersion` も書いている点が、重要です。
+
+**`recipes` を空でなくすると、advisor が自動でやってくれるバージョン更新が「置き換わり」ます。**
+同じアプリで3通り試すと、こうなりました。
+
+| `5.7.x` の `recipes` | `terasoluna.version` | Dozer |
+| --- | --- | --- |
+| `[]` | `5.7.4` → `5.8.1.RELEASE` | そのまま |
+| `ChangeDependency` のみ | **`5.7.4` のまま** | → `mapstruct` |
+| `UpgradeDependencyVersion` + `ChangeDependency` | `5.7.4` → `5.8.1.RELEASE` | → `mapstruct` |
+
 再度実行します。
 
 ```
@@ -528,8 +540,16 @@ advisor upgrade-plan apply
 ![img_3.png](img_3.png)
 
 これ以上やると本質からずれますが、このケースでは、もうすこし凝ったレシピが必要です・・・
-いずれにせよ、advisor cli が知らないTERASOLUNAのアップグレードを行えました。
+以下のような処理が必要と考えられます。
 
+| やりたいこと | レシピ |
+| --- | --- |
+| フィールドとコンストラクタの型を差し替え | `org.openrewrite.java.ChangeType` |
+| `map(form, Todo.class)` → `map(form)` | `org.openrewrite.text.FindAndReplace`（正規表現） |
+| `@Mapper` インターフェースの追加 | `FindAndReplace` で既存ファイルの末尾に追記 |
+| `annotationProcessorPaths` の設定 | `FindAndReplace` で `pom.xml` に注入 |
+
+このブログではレシピについてはこれ以上取り上げないですが、いずれにせよ、Advisor CLI が知らない TERASOLUNA のアップグレードを行えました。
 
 ## upgrade-plan を本番で使うためには？
 
@@ -537,47 +557,47 @@ advisor upgrade-plan apply
 
 ### え・・・レシピとマッピング座標を作るの面倒なのだけど・・・
 
-Broadcomとしては、可能な限り、レシピとマッピングはユーザーが作らずともデフォルトで動くように努めています。
-まずは、Broadcomに対して、サポートチケットをあげることをお勧めします。
+Broadcom としては、可能な限り、レシピとマッピングはユーザーが作らずともデフォルトで動くように努めています。
+まずは、Broadcom に対して、サポートチケットをあげることをお勧めします。
 ある程度、理にかなっていれば、レシピとマッピングを以後のリリースに同梱することは可能です。
 
 カスタムのレシピとマッピングはあくまで、世に知られていないプライベートな依存関係や、一時的なワークアラウンドの目的で作るものです。
 
-### マッピング座標つくるの面倒なのだけど・・・
+### マッピング座標を作るの面倒なのだけど・・・
 
 マッピング座標ファイルは以下のコマンドで自動で作れます。
 
 ```
-advisor mapping create -c <slug> -d
+advisor mapping create -c='org.terasoluna.gfw:terasoluna-gfw-common' < /dev/null
 ```
 
-一度作ったマッピングは以下のコマンドで更新できます。
+`-c` に渡すのはMaven 座標（`groupId:artifactId`）です。
 
-```
-advisor mapping update
-```
+なお、このコマンドは、実行した場所から Maven リポジトリを解決して、座標ファイルを生成します。
+以下は実行前に知っておくとよい点です。
 
-なお、このコマンドは、実行した場所からMavenレポジトリを解決して、座標ファイルを生成します。
-以下のデメリットはあるので、実行の注意は必要です。
-
-- 全てのバージョンに対して座標を作ろうとするので実行時間がない可能性がある
+- 全てのバージョンに対して座標を作ろうとするので、1プロジェクトで10分近くかかることがある
 - バージョン間のレシピは空の状態で提供される
+- **標準入力を待つ**ので、非対話（CI やバックグラウンド実行）では `< /dev/null` を付けないと無言でハングします。出力も出ないので、ハングなのか時間がかかっているだけなのか区別がつきません
+- 座標を1つ渡せば、そのプロジェクトの兄弟 artifact をまとめて拾ってくれます。「所属不明の artifact ごとに1回」ではなく「プロジェクトごとに1回」で十分です
 
-### レシピ作るの面倒なのだけど・・・
+どのプロジェクトが未対応かを先に調べたいときは `advisor mapping search --prefix <prefix>` が速いです。
 
-昨今でしたら、レシピはAI・LLMで作ることをお勧めします。
-OpenRewriteの知見は十分にインターネット上にあるので、それなりの精度でつくれます。
+### レシピを作るの面倒なのだけど・・・
+
+今なら、レシピは AI ・ LLM で作ることをお勧めします。
+OpenRewrite の知見は十分にインターネット上にあるので、それなりの精度でつくれます。
 
 ### エアギャップ環境はいける？
 
-advisor cli はエアギャップ環境に対応しています。
+Advisor CLI はエアギャップ環境に対応しています。
 
 ### Advisor CLI の更新頻度は？
 
-`upgrade-plan` は、常に最新のレシピとともにセットしています。
+`upgrade-plan` は、常に最新のレシピとセットで提供されます。
 いいかえると、アップグレードしないと、最新パッチのレシピが含まれない（例：1.6.5 には、Spring Boot 4.1 にあげるレシピが含まれない）ので、特定のバージョンからアップグレードできなくなります。
-よって、`upgrade-plan`を運用するために高頻度で更新することが推奨されます。
-とはいえ、advisor cli のバグが修正されている可能性もあるので、可能な限り最新を試すのがおすすめです。
+よって、`upgrade-plan` を運用するうえでは、高頻度での更新が推奨されます。
+また、Advisor CLI 自体のバグが修正されている可能性もあるので、可能な限り最新を試すのがおすすめです。
 
 ## まとめ
 
