@@ -1,7 +1,7 @@
 ---
 title: "Spring Enterprise: A Guide to Application Advisor (Upgrade Plan)"
 date: "2026-09-01T19:00:00+09:00"
-tags: ["Application Advisor", "Spring"]
+tags: ["Application Advisor", "Spring", "Spring Enterprise"]
 thumbnail: img.png
 ---
 This post introduces Application Advisor, which comes with Spring Enterprise, as a supplement to the official manual.

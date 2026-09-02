@@ -1,7 +1,7 @@
 ---
 title: "Spring Enterprise : Application Advisor 解説 (Upgrade Plan 編)"
 date: "2026-09-01T19:00:00+09:00"
-tags: ["Application Advisor", "Spring"]
+tags: ["Application Advisor", "Spring", "Spring Enterprise"]
 thumbnail: img.png
 ---
 Spring Enterprise についてくる Application Advisor のマニュアルを補足する形で紹介します。
@@ -632,7 +632,7 @@ advisor mapping create -c='org.terasoluna.gfw:terasoluna-gfw-common' < /dev/null
 - 全てのバージョンに対して座標を作ろうとするので、1プロジェクトで10分近くかかることがある
 - バージョン間のレシピは空の状態で提供される
 - **標準入力を待つ**ので、非対話（CI やバックグラウンド実行）では `< /dev/null` を付けないと無言でハングします。出力も出ないので、ハングなのか時間がかかっているだけなのか区別がつきません
-- 座標を1つ渡せば、そのプロジェクトの兄弟 artifact をまとめて拾ってくれます。「所属不明の artifact ごとに1回」ではなく「プロジェクトごとに1回」で十分です
+- 座標を1つ渡せば、そのプロジェクトの関連 artifact をまとめて拾ってくれます。「所属不明の artifact ごとに1回」ではなく「プロジェクトごとに1回」で十分です
 
 どのプロジェクトが未対応かを先に調べたいときは `advisor mapping search --prefix <prefix>` が速いです。
 
