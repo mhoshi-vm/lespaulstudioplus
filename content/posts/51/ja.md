@@ -652,6 +652,13 @@ Advisor CLI はエアギャップ環境に対応しています。
 よって、`upgrade-plan` を運用するうえでは、高頻度での更新が推奨されます。
 また、Advisor CLI 自体のバグが修正されている可能性もあるので、可能な限り最新を試すのがおすすめです。
 
+## もっと勉強がしたい！
+
+以下のコンテキストが App Advisor をまた違った観点で解説しています。
+ユーザー登録は必要ですが、無料です。なお、残念ながらコンテンツは英語です。
+
+[Tanzu Academy : Spring Application Advisor Introduction](https://spring.academy/guides/app-advisor-intro)
+
 ## まとめ
 
 Application Advisor の `upgrade-plan` について書きました。

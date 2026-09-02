@@ -652,6 +652,13 @@ Put another way, if you do not upgrade, the recipes for the newest patches are n
 So when operating `upgrade-plan`, updating frequently is recommended.
 Bugs in the Advisor CLI itself may also have been fixed, so it is best to try the latest version whenever you can.
 
+## Want to learn more ?
+
+The following link introduces application advisor from a different perspective.
+Registration required but free.
+
+[Tanzu Academy : Spring Application Advisor Introduction](https://spring.academy/guides/app-advisor-intro)
+
 ## Wrap-up
 
 I wrote about Application Advisor's `upgrade-plan`.
