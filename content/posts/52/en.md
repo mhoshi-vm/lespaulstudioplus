@@ -30,7 +30,7 @@ vllm serve cyankiwi/Qwen3.8-27B-AWQ-INT4 \
 
 This is roughly the speed it's responding at. At this stage it's a speed that doesn't feel stressful at all.
 
-![img.png](img.png)
+![img.gif](img.gif)
 
 
 I've only just started using it, but here are my impressions so far.
