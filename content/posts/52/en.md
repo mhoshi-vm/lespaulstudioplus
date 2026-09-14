@@ -9,7 +9,7 @@ I got my hands on an NVIDIA A100 (40GB) GPU card, so I ran the currently popular
 Cutting straight to the conclusion: it's putting out 40-50 Tokens/s, which I'm reasonably happy with.
 <!--more-->
 
-# 50 Tokens/s on vLLM
+## 50 Tokens/s on vLLM
 
 First, before the detailed explanation, here's the result.
 I started vLLM on the A100 with the following parameters.
@@ -46,7 +46,7 @@ Once the context hits its limit, it basically stops accepting new tasks.
 - Because I set max_model_len to 220K, for a full-length request it can basically only handle about 1 concurrent request (in my measurements, around 225,280 tokens takes roughly 1.10x as long; shorter requests can run several at once).
 - At my level, it feels like having a Claude I can use freely, and that alone is simply fun.
 
-# Characteristics of the A100
+## Characteristics of the A100
 
 This is my first time running an LLM on a GPU as well, and it really drove home how different each GPU's character can be. Here's what I learned about the A100's characteristics this time.
 
@@ -58,7 +58,7 @@ That's on par with — or even better than — the latest high-end consumer GPUs
 - The A100's biggest weakness is that it's "old." Being a 6-year-old model, it can't support modern quantization schemes like FP8 (aimed at H100/H200) or FP4/NVFP4 (aimed at Blackwell), so its memory-compression efficiency is poor.
 - It's still expensive (has become expensive, even).
 
-# What the vLLM Parameters Mean
+## What the vLLM Parameters Mean
 
 Here's what each of them means.
 
@@ -86,6 +86,6 @@ https://github.com/ollama/ollama/issues/17778
 It seems to be common knowledge in general that if you want finer-grained tuning when running an LLM on a GPU, vLLM is the way to go.
 
 
-# Wrap-up
+## Wrap-up
 
 I'm happy to be able to run a state-of-the-art model on the A100 at quite a decent speed.
