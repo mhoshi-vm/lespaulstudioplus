@@ -1,5 +1,5 @@
 ---
-title: "A100(40GB) に Qwen3.8:27b で動かすためのメモ"
+title: "A100(40GB) に Qwen3.8:27b を動かすためのメモ"
 date: "2026-09-14T19:00:00+09:00"
 tags: ["PrivateAI", "LLM", "GPU", "AI", "A100", "Qwen"]
 thumbnail: img_1.png
