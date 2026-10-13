@@ -3,6 +3,7 @@ title: "CPU(E5 2697v4) に Qwen3.6:35b-a3b を動かすためのメモ"
 date: "2026-09-14T19:00:00+09:00"
 tags: ["PrivateAI", "LLM", "CPU", "AI", "Qwen"]
 thumbnail: img_1.png
+draft: true
 ---
 
 [前回](../52) の記事で GPU 向けのLLMをチューニングしましたが、そこで得た知見がCPU側で動かすLLMに役立った(?)のでそのメモです。
